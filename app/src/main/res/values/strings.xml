@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">ProofOfConcept2</string>
+    <string name="edit_message">Enter message here!</string>
+    <string name="button_send">Send!</string>
+    <string name="firebase_message">Value</string>
+    <string name="key_message">Key</string>
+</resources>
