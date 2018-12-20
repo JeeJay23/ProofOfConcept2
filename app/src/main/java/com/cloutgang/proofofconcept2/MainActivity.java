@@ -1,20 +1,13 @@
 package com.cloutgang.proofofconcept2;
 
 import android.content.Intent;
-import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
-import android.widget.Toast;
 
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-
-import java.util.HashMap;
-
 
 public class MainActivity extends AppCompatActivity {
 
@@ -35,7 +28,7 @@ public class MainActivity extends AppCompatActivity {
         // create intent
         Intent intent = new Intent(this, DisplayMessageActivity.class);
         // get the EditText
-        EditText editText = (EditText) findViewById(R.id.editText2);
+        EditText editText = (EditText) findViewById(R.id.txtKey);
         // get string from the EditText
         String message = editText.getText().toString();
         // pass along string to new activity
@@ -46,8 +39,8 @@ public class MainActivity extends AppCompatActivity {
 
     public void SendToFireBase(View view)
     {
-        String key = ((EditText)findViewById(R.id.editText)).getText().toString();
-        String value = ((EditText)findViewById(R.id.editText2)).getText().toString();
+        String key = ((EditText)findViewById(R.id.txtKey)).getText().toString();
+        String value = ((EditText)findViewById(R.id.txtValue)).getText().toString();
 
         // quick way of acessing child objects
 //        mDataBase.child(key).setValue(value);
