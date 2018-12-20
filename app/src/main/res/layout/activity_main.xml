@@ -53,14 +53,13 @@
         app:layout_constraintStart_toStartOf="parent"
         tools:layout_editor_absoluteY="77dp" />
 
-    <EditText
+    <TextView
         android:id="@+id/txtExplanation"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
-        android:ems="10"
-        android:inputType="none"
         android:text="Enter name"
+        android:textSize="25sp"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
