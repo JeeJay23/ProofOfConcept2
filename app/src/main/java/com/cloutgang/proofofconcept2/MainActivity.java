@@ -42,7 +42,7 @@ public class MainActivity extends AppCompatActivity {
         String key = ((EditText)findViewById(R.id.txtKey)).getText().toString();
         String value = ((EditText)findViewById(R.id.txtValue)).getText().toString();
 
-        // quick way of acessing child objects
+        // quick way of afhelajgfoaewjfoiawejfoijaweoijfe ojfoia ejfoiewj ofjewoifj weoiafjoiwej faowejfoiwje oijcessing child objects
 //        mDataBase.child(key).setValue(value);
 
         // cleaner way
