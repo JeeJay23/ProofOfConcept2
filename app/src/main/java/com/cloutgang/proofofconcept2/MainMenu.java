@@ -6,32 +6,29 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 
-public class MainMenu extends AppCompatActivity {
+public class MainMenu extends AppCompatActivity implements View.OnClickListener{
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main_menu);
 
-
-        Button BtnToLoginScreen = (Button)findViewById(R.id.BtnToLoginScreen);
-        BtnToLoginScreen.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent startIntent = new Intent(getApplicationContext(), LoginScreen.class);
-                startActivity(startIntent);
-            }
-        });
-
-        Button BtnToLobbyScreen = (Button)findViewById(R.id.BtnToLobbyScreen);
-        BtnToLobbyScreen.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent startIntent = new Intent(getApplicationContext(), LobbyScreen.class);
-                startActivity(startIntent);
-            }
-        });
+        findViewById(R.id.BtnToLoginScreen).setOnClickListener(this);
+        findViewById(R.id.BtnToLobbyScreen).setOnClickListener(this);
 
 
+    }
+
+    @Override
+    public void onClick(View v) {
+        switch(v.getId()){
+            case R.id.BtnToLoginScreen:
+                startActivity(new Intent(this, LoginScreen.class));
+                break;
+
+            case R.id.BtnToLobbyScreen:
+                startActivity(new Intent(this, LobbyScreen.class));
+                break;
+        }
     }
 }
