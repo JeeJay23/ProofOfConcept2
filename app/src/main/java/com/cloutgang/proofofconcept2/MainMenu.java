@@ -19,9 +19,7 @@ public class MainMenu extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent startIntent = new Intent(getApplicationContext(), LoginScreen.class);
-                //je kan ook info doorgeven
                 startActivity(startIntent);
-
             }
         });
 
@@ -30,9 +28,7 @@ public class MainMenu extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent startIntent = new Intent(getApplicationContext(), LobbyScreen.class);
-                //je kan ook info doorgeven
                 startActivity(startIntent);
-
             }
         });
 
