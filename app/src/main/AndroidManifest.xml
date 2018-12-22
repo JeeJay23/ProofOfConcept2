@@ -29,7 +29,8 @@
                 android:value=".MainActivity" />
         </activity>
         <activity android:name=".MainActivity" />
-        <activity android:name=".LoginScreen"></activity>
+        <activity android:name=".LoginScreen" />
+        <activity android:name=".MainMenu"></activity>
     </application>
 
 </manifest>

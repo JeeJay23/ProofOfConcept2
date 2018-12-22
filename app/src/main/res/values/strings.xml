@@ -17,4 +17,12 @@
     <string name="permission_rationale">"Contacts permissions are needed for providing email
         completions."
     </string>
+    <string name="signup">SignUp</string>
+    <string name="login">Login</string>
+    <string name="email">Email</string>
+    <string name="password">Password</string>
+    <string name="passwoord">Passwoord</string>
+    <string name="username">username</string>
+    <string name="to_loginscreen">To LoginScreen</string>
+    <string name="to_lobbyscreen">To LobbyScreen</string>
 </resources>
