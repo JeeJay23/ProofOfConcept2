@@ -29,9 +29,7 @@
                 android:value=".MainActivity" />
         </activity>
         <activity android:name=".MainActivity" />
-        <activity
-            android:name=".LoginScreen"
-            android:label="@string/title_activity_login_screen"></activity>
+        <activity android:name=".LoginScreen"></activity>
     </application>
 
 </manifest>
