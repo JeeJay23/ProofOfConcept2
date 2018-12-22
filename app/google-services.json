@@ -23,6 +23,14 @@
           }
         },
         {
+          "client_id": "910668996088-2e309cbrhk77b5ktuflpt8j0qhb4rqhf.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.cloutgang.proofofconcept2",
+            "certificate_hash": "bea78b3e9f42573c652aa5b0e64d501bd81ba058"
+          }
+        },
+        {
           "client_id": "910668996088-spgkk8pbu56iilme0rjrmvur3be8ndov.apps.googleusercontent.com",
           "client_type": 3
         }
