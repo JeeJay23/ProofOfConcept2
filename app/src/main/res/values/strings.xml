@@ -25,4 +25,6 @@
     <string name="username">username</string>
     <string name="to_loginscreen">To LoginScreen</string>
     <string name="to_lobbyscreen">To LobbyScreen</string>
+    <string name="cick_here_to_login">Cick here to login</string>
+    <string name="click_here_to_register">Click here to register</string>
 </resources>
