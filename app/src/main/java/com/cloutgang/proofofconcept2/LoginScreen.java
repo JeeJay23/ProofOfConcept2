@@ -39,6 +39,7 @@ public class LoginScreen extends AppCompatActivity implements View.OnClickListen
 
     }
 
+    //when a user tries to login
     private void UserLogin(){
         String username = editTextUsername.getText().toString().trim();
         String password = editTextPassword.getText().toString().trim();
@@ -78,7 +79,8 @@ public class LoginScreen extends AppCompatActivity implements View.OnClickListen
                 if(task.isSuccessful()){
                     Toast.makeText(getApplicationContext(), "Login successful", Toast.LENGTH_SHORT).show();
                     Intent intent = new Intent(LoginScreen.this, LobbyScreen.class);
-                    //make sure the user can't go back to the login with the bakck button
+
+                    //make sure the user can't go back to the login with the back button
                     intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                     startActivity(intent);
 
@@ -92,7 +94,7 @@ public class LoginScreen extends AppCompatActivity implements View.OnClickListen
     }
 
 
-
+    //when something is clicked this will trigger
     @Override
     public void onClick(View v) {
 
