@@ -84,8 +84,9 @@ public class ProfileScreen extends AppCompatActivity {
         super.onStart();
 
         if(mAuth.getCurrentUser() == null){
-            finish();
+
             startActivity(new Intent(this, LoginScreen.class));
+            finish();
         }
     }
 
