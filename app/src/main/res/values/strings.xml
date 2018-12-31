@@ -27,4 +27,8 @@
     <string name="to_lobbyscreen">To LobbyScreen</string>
     <string name="cick_here_to_login">Cick here to login</string>
     <string name="click_here_to_register">Click here to register</string>
+    <string name="profile_image">Profile image</string>
+    <string name="tap_on_the_dog_to_choose_a_profile_picture">Tap on the dog to choose a profile picture</string>
+    <string name="save">Save</string>
+    <string name="name">Name</string>
 </resources>
