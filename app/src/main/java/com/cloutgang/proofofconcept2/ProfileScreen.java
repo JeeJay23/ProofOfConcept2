@@ -8,11 +8,16 @@ import android.provider.MediaStore;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -46,6 +51,9 @@ public class ProfileScreen extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile_screen);
 
+        Toolbar toolbar = findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+
         editText = (EditText) findViewById(R.id.editTextDisplayName);
         imageView = (ImageView) findViewById(R.id.imageViewProfilePicture);
 
@@ -59,6 +67,8 @@ public class ProfileScreen extends AppCompatActivity {
             }
         });
 
+        loadUserInformation();
+
         findViewById(R.id.BtnSaveProfile).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -67,6 +77,64 @@ public class ProfileScreen extends AppCompatActivity {
         });
 
 
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+
+        if(mAuth.getCurrentUser() == null){
+            finish();
+            startActivity(new Intent(this, LoginScreen.class));
+        }
+    }
+
+
+    private void loadUserInformation(){
+        FirebaseUser user = mAuth.getCurrentUser();
+
+        if(user != null) {
+            if (user.getPhotoUrl() != null) {
+                Glide.with(this)
+                        .load(user.getPhotoUrl().toString())
+                        .into(imageView);
+
+            }
+
+            if (user.getDisplayName() != null) {
+                editText.setText(user.getDisplayName());
+            }
+
+
+        }
+
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.menu, menu);
+
+        return true;
+    }
+
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+
+        switch (item.getItemId()){
+            case R.id.menuLogout:
+
+                FirebaseAuth.getInstance().signOut();
+                finish();
+                startActivity(new Intent(this, LoginScreen.class));
+
+                break;
+        }
+
+
+        return true;
     }
 
     private void saveUserInformation() {

@@ -1,9 +1,9 @@
 package com.cloutgang.proofofconcept2;
 
 import android.content.Intent;
+import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.util.Patterns;
 import android.view.View;
 import android.widget.EditText;
@@ -13,7 +13,6 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseAuthException;
 import com.google.firebase.auth.FirebaseAuthUserCollisionException;
 
 public class SignUpScreen extends AppCompatActivity implements View.OnClickListener {
@@ -81,6 +80,8 @@ public class SignUpScreen extends AppCompatActivity implements View.OnClickListe
             public void onComplete(@NonNull Task<AuthResult> task) {
                 //check if the registration succeeded
                 if(task.isSuccessful()){
+                    finish();
+                    startActivity(new Intent(SignUpScreen.this, ProfileScreen.class));
                     Toast.makeText(getApplicationContext(), "User Registered", Toast.LENGTH_SHORT).show();
                 }
                 else{
@@ -103,6 +104,7 @@ public class SignUpScreen extends AppCompatActivity implements View.OnClickListe
         switch(v.getId()){
             //if the clicked object was the textViewSignUp
             case R.id.textViewSignUp:
+                finish();
                 //go to the LoginScreen
                 startActivity(new Intent(this, LoginScreen.class));
                 break;

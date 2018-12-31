@@ -73,6 +73,7 @@ public class LoginScreen extends AppCompatActivity implements View.OnClickListen
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
                 if(task.isSuccessful()){
+                    finish();
                     Toast.makeText(getApplicationContext(), "Login successful", Toast.LENGTH_SHORT).show();
                     Intent intent = new Intent(LoginScreen.this, ProfileScreen.class);
 
@@ -89,6 +90,15 @@ public class LoginScreen extends AppCompatActivity implements View.OnClickListen
 
     }
 
+    @Override
+    protected void onStart() {
+        super.onStart();
+
+        if(mAuth.getCurrentUser() != null){
+            finish();
+            startActivity(new Intent(this, ProfileScreen.class));
+        }
+    }
 
     //when something is clicked this will trigger
     @Override
@@ -96,6 +106,7 @@ public class LoginScreen extends AppCompatActivity implements View.OnClickListen
 
         switch(v.getId()){
             case R.id.textViewLogin:
+                finish();
                 startActivity(new Intent(this, SignUpScreen.class));
                 break;
 
