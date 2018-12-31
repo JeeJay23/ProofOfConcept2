@@ -4,4 +4,34 @@
     <string name="button_send">Send!</string>
     <string name="firebase_message">Value</string>
     <string name="key_message">Key</string>
+    <string name="title_activity_login_screen">Sign in</string>
+    <!-- Strings related to login -->
+    <string name="prompt_email">Email</string>
+    <string name="prompt_password">Password (optional)</string>
+    <string name="action_sign_in">Sign in or register</string>
+    <string name="action_sign_in_short">Sign in</string>
+    <string name="error_invalid_email">This email address is invalid</string>
+    <string name="error_invalid_password">This password is too short</string>
+    <string name="error_incorrect_password">This password is incorrect</string>
+    <string name="error_field_required">This field is required</string>
+    <string name="permission_rationale">"Contacts permissions are needed for providing email
+        completions."
+    </string>
+    <string name="signup">SignUp</string>
+    <string name="login">Login</string>
+    <string name="email">Email</string>
+    <string name="password">Password</string>
+    <string name="passwoord">Passwoord</string>
+    <string name="username">username</string>
+    <string name="to_loginscreen">To LoginScreen</string>
+    <string name="to_lobbyscreen">To LobbyScreen</string>
+    <string name="cick_here_to_login">Cick here to login</string>
+    <string name="click_here_to_register">Click here to register</string>
+    <string name="profile_image">Profile image</string>
+    <string name="tap_on_the_dog_to_choose_a_profile_picture">Tap on the dog to choose a profile picture</string>
+    <string name="save">Save</string>
+    <string name="name">Name</string>
+    <string name="to_profilescreen">To ProfileScreen</string>
+    <string name="dit_scherm_is_alleen_voor_nu">dit scherm is alleen voor nu</string>
+    <string name="tap_on_guts_to_choose_a_profile_picture">tap on guts to choose a profile picture</string>
 </resources>
