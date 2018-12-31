@@ -31,4 +31,7 @@
     <string name="tap_on_the_dog_to_choose_a_profile_picture">Tap on the dog to choose a profile picture</string>
     <string name="save">Save</string>
     <string name="name">Name</string>
+    <string name="to_profilescreen">To ProfileScreen</string>
+    <string name="dit_scherm_is_alleen_voor_nu">dit scherm is alleen voor nu</string>
+    <string name="tap_on_guts_to_choose_a_profile_picture">tap on guts to choose a profile picture</string>
 </resources>

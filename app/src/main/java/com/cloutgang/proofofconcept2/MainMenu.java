@@ -1,10 +1,9 @@
 package com.cloutgang.proofofconcept2;
 
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.view.View;
-import android.widget.Button;
 
 public class MainMenu extends AppCompatActivity implements View.OnClickListener{
 
@@ -15,6 +14,8 @@ public class MainMenu extends AppCompatActivity implements View.OnClickListener{
 
         findViewById(R.id.BtnToLoginScreen).setOnClickListener(this);
         findViewById(R.id.BtnToLobbyScreen).setOnClickListener(this);
+        findViewById(R.id.BtnToProfileScreen).setOnClickListener(this);
+
 
 
     }
@@ -28,6 +29,10 @@ public class MainMenu extends AppCompatActivity implements View.OnClickListener{
 
             case R.id.BtnToLobbyScreen:
                 startActivity(new Intent(this, LobbyScreen.class));
+                break;
+
+            case R.id.BtnToProfileScreen:
+                startActivity(new Intent(this, ProfileScreen.class));
                 break;
         }
     }
