@@ -34,4 +34,6 @@
     <string name="to_profilescreen">To ProfileScreen</string>
     <string name="dit_scherm_is_alleen_voor_nu">dit scherm is alleen voor nu</string>
     <string name="tap_on_guts_to_choose_a_profile_picture">tap on guts to choose a profile picture</string>
+    <string name="profilescreen_zou_hetzelfde_moeten_geven_als_loginscreen_op_het_moment">ProfileScreen zou hetzelfde moeten geven als loginScreen op het moment</string>
+    <string name="tap_on_skull_knight_to_choose_a_profile_picture">tap_on_skull_knight_to_choose_a_profile_picture</string>
 </resources>

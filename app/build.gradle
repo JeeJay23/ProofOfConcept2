@@ -10,6 +10,10 @@ android {
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+
+
+        //test
+        vectorDrawables.useSupportLibrary = true
     }
     buildTypes {
         release {
@@ -40,7 +44,5 @@ dependencies {
 }
 
 
-repositories {
-    mavenCentral()
-    maven { url 'https://maven.google.com' }
-}
+
+

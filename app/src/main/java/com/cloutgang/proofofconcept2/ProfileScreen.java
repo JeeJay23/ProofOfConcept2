@@ -18,6 +18,9 @@ import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.RequestBuilder;
+import com.bumptech.glide.annotation.GlideModule;
+import com.bumptech.glide.module.AppGlideModule;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -84,31 +87,32 @@ public class ProfileScreen extends AppCompatActivity {
         super.onStart();
 
         if(mAuth.getCurrentUser() == null){
-
-            startActivity(new Intent(this, LoginScreen.class));
             finish();
+            startActivity(new Intent(this, LoginScreen.class));
         }
+        loadUserInformation();
     }
 
 
     private void loadUserInformation(){
-        FirebaseUser user = mAuth.getCurrentUser();
+        final FirebaseUser user = mAuth.getCurrentUser();
+
 
         if(user != null) {
             if (user.getPhotoUrl() != null) {
                 Glide.with(this)
                         .load(user.getPhotoUrl().toString())
                         .into(imageView);
-
             }
+            else{
+                Toast.makeText(this, "geen url", Toast.LENGTH_SHORT).show();
+            }
+
 
             if (user.getDisplayName() != null) {
                 editText.setText(user.getDisplayName());
             }
-
-
         }
-
     }
 
     @Override
@@ -150,7 +154,7 @@ public class ProfileScreen extends AppCompatActivity {
 
         FirebaseUser user = mAuth.getCurrentUser();
 
-        if(user!=null && profileImageUrl != null){
+        if(user != null && profileImageUrl != null){
             UserProfileChangeRequest profile = new UserProfileChangeRequest.Builder()
                     .setDisplayName(displayName)
                     .setPhotoUri(Uri.parse(profileImageUrl))
@@ -169,6 +173,7 @@ public class ProfileScreen extends AppCompatActivity {
         }
     }
 
+    //do this when the activity gives a result
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -181,6 +186,7 @@ public class ProfileScreen extends AppCompatActivity {
                 Bitmap bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), uriProfileImage);
                 imageView.setImageBitmap(bitmap);
 
+                //uploads the image to firebase storage
                 uploadImageToFireBaseStorage();
 
             } catch (IOException e) {
@@ -191,7 +197,8 @@ public class ProfileScreen extends AppCompatActivity {
 
     }
 
-    private void uploadImageToFireBaseStorage(){
+    //uploads the image to the firebase storage
+   /* private void uploadImageToFireBaseStorage(){
         StorageReference profileImageReference = FirebaseStorage.getInstance().getReference("profilepics/"+System.currentTimeMillis() + ".jpg");
 
         if(uriProfileImage != null){
@@ -213,15 +220,45 @@ public class ProfileScreen extends AppCompatActivity {
         }
 
     }
+    */
+
+    private void uploadImageToFireBaseStorage(){
+        final StorageReference profileImageRef = FirebaseStorage.getInstance().getReference("profilepics/"+System.currentTimeMillis() + ".jpg");
+
+        profileImageRef.putFile(uriProfileImage)
+                .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>()
+                { @Override
+                public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                    profileImageRef.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+                        @Override
+                        public void onSuccess(Uri uri) {
+                            profileImageUrl = uri.toString();
+                            Toast.makeText(getApplicationContext(), "Image Upload Successful", Toast.LENGTH_SHORT).show(); } })
+                            .addOnFailureListener(new OnFailureListener() {
+                                @Override public void onFailure(@NonNull Exception e) {
+                                    Toast.makeText(getApplicationContext(), e.getMessage(), Toast.LENGTH_LONG).show();
+                                }
+                            });
+                }
+                })
+                .addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e)
+                    { Toast.makeText(getApplicationContext(), e.getMessage(), Toast.LENGTH_LONG).show();
+                    }
+                });
+    }
 
 
 
+    //this is what happens when te user wants to select a profile image
     private void showImageChooser(){
         Intent intent = new Intent();
         intent.setType("image/*");
         intent.setAction(Intent.ACTION_GET_CONTENT);
         startActivityForResult(Intent.createChooser(intent, "Select profile Image"), CHOOSE_IMAGE);
     }
+
 
 
 
