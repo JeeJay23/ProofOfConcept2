@@ -2,6 +2,7 @@ package com.cloutgang.proofofconcept2;
 
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
@@ -62,6 +63,8 @@ public class ProfileScreen extends AppCompatActivity {
 
         mAuth = FirebaseAuth.getInstance();
 
+        loadUserInformation();
+
         imageView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -70,7 +73,7 @@ public class ProfileScreen extends AppCompatActivity {
             }
         });
 
-        loadUserInformation();
+
 
         findViewById(R.id.BtnSaveProfile).setOnClickListener(new View.OnClickListener() {
             @Override
@@ -103,8 +106,13 @@ public class ProfileScreen extends AppCompatActivity {
                 Glide.with(this)
                         .load(user.getPhotoUrl().toString())
                         .into(imageView);
+                if(imageView.getDrawable() == null){
+                    imageView.setImageResource(R.drawable.berserk_profilepic);
+                    Toast.makeText(this, "er kon geen image gevonden worden", Toast.LENGTH_SHORT).show();
+                }
             }
             else{
+
                 Toast.makeText(this, "geen url", Toast.LENGTH_SHORT).show();
             }
 
