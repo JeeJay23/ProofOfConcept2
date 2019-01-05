@@ -31,9 +31,9 @@ public class LoginScreen extends AppCompatActivity implements View.OnClickListen
 
         editTextUsername = (EditText) findViewById(R.id.editTextUsernameLogin);
         editTextPassword = (EditText) findViewById(R.id.editTextPasswoordLogin);
-
-
     }
+
+
 
     //when a user tries to login
     private void UserLogin(){
@@ -68,19 +68,20 @@ public class LoginScreen extends AppCompatActivity implements View.OnClickListen
             return;
         }
 
-
+        //try to sign in
         mAuth.signInWithEmailAndPassword(username, password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
+                //when successful finish this activity and go to the profile activity
                 if(task.isSuccessful()){
                     finish();
                     Toast.makeText(getApplicationContext(), "Login successful", Toast.LENGTH_SHORT).show();
                     Intent intent = new Intent(LoginScreen.this, ProfileScreen.class);
 
-                    //make sure the user can't go back to the login with the back button
+                    //make sure the user can't go back to the login activity with the back button
+                    //this way the user has to make use of the logout button to return
                     intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                     startActivity(intent);
-
                 }
                 else{
                     Toast.makeText(getApplicationContext(), "Login failed", Toast.LENGTH_SHORT).show();
@@ -90,10 +91,12 @@ public class LoginScreen extends AppCompatActivity implements View.OnClickListen
 
     }
 
+    //see if the user is already logged in when starting the activity
     @Override
     protected void onStart() {
         super.onStart();
 
+        //when the user is already logged in go to the profile activity
         if(mAuth.getCurrentUser() != null){
             finish();
             startActivity(new Intent(this, ProfileScreen.class));
