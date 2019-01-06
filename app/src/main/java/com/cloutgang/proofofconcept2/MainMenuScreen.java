@@ -5,7 +5,7 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 
-public class MainMenu extends AppCompatActivity implements View.OnClickListener{
+public class MainMenuScreen extends AppCompatActivity implements View.OnClickListener{
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -15,9 +15,6 @@ public class MainMenu extends AppCompatActivity implements View.OnClickListener{
         findViewById(R.id.BtnToLoginScreen).setOnClickListener(this);
         findViewById(R.id.BtnToLobbyScreen).setOnClickListener(this);
         findViewById(R.id.BtnToProfileScreen).setOnClickListener(this);
-
-
-
     }
 
     //when cicked on a button go to that activity

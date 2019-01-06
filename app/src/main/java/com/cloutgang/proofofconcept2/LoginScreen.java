@@ -37,6 +37,7 @@ public class LoginScreen extends AppCompatActivity implements View.OnClickListen
 
     //when a user tries to login
     private void UserLogin(){
+        //trim removes the spaces at the beginning and the end
         String username = editTextUsername.getText().toString().trim();
         String password = editTextPassword.getText().toString().trim();
 
