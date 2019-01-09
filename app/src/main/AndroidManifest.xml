@@ -32,7 +32,8 @@
         <activity android:name=".LoginScreen" />
         <activity android:name=".LobbyScreen" />
         <activity android:name=".SignUpScreen" />
-        <activity android:name=".ProfileScreen"></activity>
+        <activity android:name=".ProfileScreen" />
+        <activity android:name=".CreateLobby"></activity>
     </application>
 
 </manifest>

@@ -36,4 +36,8 @@
     <string name="tap_on_guts_to_choose_a_profile_picture">tap on guts to choose a profile picture</string>
     <string name="profilescreen_zou_hetzelfde_moeten_geven_als_loginscreen_op_het_moment">ProfileScreen zou hetzelfde moeten geven als loginScreen op het moment</string>
     <string name="tap_on_skull_knight_to_choose_a_profile_picture">tap_on_skull_knight_to_choose_a_profile_picture</string>
+    <string name="mealNameField">What are you making?</string>
+    <string name="mealPrice">How much do you want to charge?</string>
+    <string name="mealIngredients">Which ingredients are you going to use?</string>
+    <string name="mealMaxGuests">How many people can join you?</string>
 </resources>
