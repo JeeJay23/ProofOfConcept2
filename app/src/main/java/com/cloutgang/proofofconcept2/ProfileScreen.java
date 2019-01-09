@@ -116,11 +116,11 @@ public class ProfileScreen extends AppCompatActivity {
                 //if the Url can be found but not the image, use the standard image and give the error message
                 if (imageView.getDrawable() == null) {
                     imageView.setImageResource(R.drawable.berserk_profilepic);
-                    Toast.makeText(this, "er kon geen image gevonden worden", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(this, "No image could be found", Toast.LENGTH_SHORT).show();
                 }
             }
             else {
-                Toast.makeText(this, "geen url", Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, "No URL", Toast.LENGTH_SHORT).show();
             }
 
             //check if the user displayname is not null
