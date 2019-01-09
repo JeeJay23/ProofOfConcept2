@@ -40,4 +40,5 @@
     <string name="mealPrice">How much do you want to charge?</string>
     <string name="mealIngredients">Which ingredients are you going to use?</string>
     <string name="mealMaxGuests">How many people can join you?</string>
+    <string name="mealLocation">What is your location?</string>
 </resources>

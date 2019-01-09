@@ -1,3 +1,5 @@
+package com.cloutgang.proofofconcept2;
+
 /**
  * Created by jvjad on 09-Jan-19.
  */
@@ -5,7 +7,7 @@
 public class Lobby {
 
     public String owner;
-
+    public int[] guestIDs;
     public String meal;
     public String price;
     public String ingredients;
