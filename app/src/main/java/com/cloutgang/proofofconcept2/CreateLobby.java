@@ -122,17 +122,12 @@ public class CreateLobby extends AppCompatActivity {
             return;
         }
         locationManager.requestLocationUpdates("gps", 0, 1000, locationListener);
-//        user.getDisplayName()
         Lobby lobby = new Lobby(user.getDisplayName(), mealName, mealPrice, mealIngredients, formattedDate, locationString, maxGuests );
 
         DatabaseReference lobbyRef = FirebaseDatabase.getInstance().getReference("Rooms");
         DatabaseReference roomRef = lobbyRef.push();
         roomRef.setValue(lobby);
     }
-
-
-
-
 
     //run this when the Menu for the logout button is created (see app/res/menu)
     //this adds the menu to the activity

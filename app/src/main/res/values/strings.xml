@@ -41,4 +41,5 @@
     <string name="mealIngredients">Which ingredients are you going to use?</string>
     <string name="mealMaxGuests">How many people can join you?</string>
     <string name="mealLocation">What is your location?</string>
+    <string name="submitLobby">Create Lobby</string>
 </resources>
