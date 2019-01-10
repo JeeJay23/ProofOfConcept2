@@ -14,6 +14,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.ProgressBar;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -28,6 +29,7 @@ public class CreateLobby extends AppCompatActivity {
     LocationListener locationListener;
     LocationManager locationManager;
     String locationString;
+    ProgressBar progressBar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,6 +38,8 @@ public class CreateLobby extends AppCompatActivity {
 
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+        progressBar = (ProgressBar) findViewById(R.id.progressBar);
+
 
 
         txtMealName = findViewById(R.id.txtxName);
@@ -105,12 +109,16 @@ public class CreateLobby extends AppCompatActivity {
 
         // no idea how to get id, fix later
 
+        progressBar.setVisibility(View.VISIBLE);
+
         java.util.Date c = java.util.Calendar.getInstance().getTime();
 
         SimpleDateFormat df = new SimpleDateFormat("dd-MMM-yyyy");
         String formattedDate = df.format(c);
         FirebaseAuth mAuth = FirebaseAuth.getInstance();
         FirebaseUser user = mAuth.getCurrentUser();
+
+
         if (ActivityCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
             // TODO: Consider calling
             //    ActivityCompat#requestPermissions
@@ -127,6 +135,8 @@ public class CreateLobby extends AppCompatActivity {
         DatabaseReference lobbyRef = FirebaseDatabase.getInstance().getReference("Rooms");
         DatabaseReference roomRef = lobbyRef.push();
         roomRef.setValue(lobby);
+
+        progressBar.setVisibility(View.GONE);
     }
 
     //run this when the Menu for the logout button is created (see app/res/menu)
