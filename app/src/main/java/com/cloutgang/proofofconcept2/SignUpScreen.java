@@ -7,6 +7,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Patterns;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -19,7 +20,7 @@ public class SignUpScreen extends AppCompatActivity implements View.OnClickListe
 
 
     EditText editTextUsername, editTextPassword;
-
+    ProgressBar progressBar;
     private FirebaseAuth mAuth;
 
     @Override
@@ -27,7 +28,7 @@ public class SignUpScreen extends AppCompatActivity implements View.OnClickListe
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sign_up_screen);
 
-
+        progressBar = (ProgressBar) findViewById(R.id.progressBar);
 
         findViewById(R.id.textViewSignUp).setOnClickListener(this);
 
@@ -74,13 +75,16 @@ public class SignUpScreen extends AppCompatActivity implements View.OnClickListe
             return;
         }
 
-        //who this?
-        //mAuth.
+        //show the progressBar
+        progressBar.setVisibility(View.VISIBLE);
 
         //when everything is filled in correctly, send the username and password to Firebase
         mAuth.createUserWithEmailAndPassword(username, password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
+
+                //hide the progressBar
+                progressBar.setVisibility(View.GONE);
                 //check if the registration succeeded
                 if(task.isSuccessful()){
                     finish();
@@ -92,7 +96,6 @@ public class SignUpScreen extends AppCompatActivity implements View.OnClickListe
                     if(task.getException() instanceof FirebaseAuthUserCollisionException){
                         Toast.makeText(getApplicationContext(), "This email is already registered", Toast.LENGTH_SHORT).show();
                     }
-
                 }
             }
         });
