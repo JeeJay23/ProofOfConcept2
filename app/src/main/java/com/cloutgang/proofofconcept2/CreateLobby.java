@@ -83,11 +83,11 @@ public class CreateLobby extends AppCompatActivity {
 
         java.util.Date c = java.util.Calendar.getInstance().getTime();
 
-        SimpleDateFormat df = new SimpleDateFormat("dd-MMM-yyyy");
+        SimpleDateFormat df = new SimpleDateFormat("dd-MMM-yyyy-hh:mm");
         String formattedDate = df.format(c);
         FirebaseAuth mAuth = FirebaseAuth.getInstance();
         FirebaseUser user = mAuth.getCurrentUser();
-//        user.getDisplayName()
+
         Lobby lobby = new Lobby(user.getDisplayName(), mealName, mealPrice, mealIngredients, formattedDate, mealLocation, maxGuests );
 
         DatabaseReference lobbyRef = FirebaseDatabase.getInstance().getReference("Rooms");
