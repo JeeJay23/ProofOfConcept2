@@ -88,7 +88,7 @@ public class CreateLobby extends AppCompatActivity {
         FirebaseAuth mAuth = FirebaseAuth.getInstance();
         FirebaseUser user = mAuth.getCurrentUser();
 //        user.getDisplayName()
-        Lobby lobby = new Lobby(user.getDisplayName(), mealName, mealPrice, mealIngredients, formattedDate, "no location yet", maxGuests );
+        Lobby lobby = new Lobby(user.getDisplayName(), mealName, mealPrice, mealIngredients, formattedDate, mealLocation, maxGuests );
 
         DatabaseReference lobbyRef = FirebaseDatabase.getInstance().getReference("Rooms");
         DatabaseReference roomRef = lobbyRef.push();
