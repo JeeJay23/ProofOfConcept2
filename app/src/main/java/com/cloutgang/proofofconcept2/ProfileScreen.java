@@ -2,9 +2,6 @@ package com.cloutgang.proofofconcept2;
 
 import android.content.Intent;
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.graphics.drawable.BitmapDrawable;
-import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
@@ -21,9 +18,6 @@ import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
-import com.bumptech.glide.RequestBuilder;
-import com.bumptech.glide.annotation.GlideModule;
-import com.bumptech.glide.module.AppGlideModule;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -38,6 +32,7 @@ import com.google.firebase.storage.UploadTask;
 import java.io.IOException;
 
 public class ProfileScreen extends AppCompatActivity {
+
 
 
     private static final int CHOOSE_IMAGE = 101;
@@ -112,6 +107,7 @@ public class ProfileScreen extends AppCompatActivity {
                 Glide.with(this)
                         .load(user.getPhotoUrl().toString())
                         .into(imageView);
+
 
                 //if the Url can be found but not the image, use the standard image and give the error message
                 if (imageView.getDrawable() == null) {
@@ -215,6 +211,7 @@ public class ProfileScreen extends AppCompatActivity {
                 Toast.makeText(this, "Something went wrong", Toast.LENGTH_SHORT).show();
             }
         }
+
     }
 
     //uploads the image to the firebase storage
