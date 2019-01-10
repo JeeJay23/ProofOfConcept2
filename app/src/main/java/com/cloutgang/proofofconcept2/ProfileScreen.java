@@ -79,8 +79,6 @@ public class ProfileScreen extends AppCompatActivity {
                 saveUserInformation();
             }
         });
-
-
     }
 
     //when the activity starts, load the userinfo and check if the user is logged in
@@ -211,7 +209,6 @@ public class ProfileScreen extends AppCompatActivity {
                 Toast.makeText(this, "Something went wrong", Toast.LENGTH_SHORT).show();
             }
         }
-
     }
 
     //uploads the image to the firebase storage
