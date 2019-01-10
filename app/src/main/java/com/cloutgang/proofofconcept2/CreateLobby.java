@@ -55,24 +55,28 @@ public class CreateLobby extends AppCompatActivity {
         {
             txtMealName.setError("No name set");
             txtMealName.requestFocus();
+            return;
         }
 
         if (mealPrice.isEmpty())
         {
             txtMealPrice.setError("No price set");
             txtMealPrice.requestFocus();
+            return;
         }
 
         if (maxGuests == 0)
         {
             txtMealMaxGuests.setError("Need at least 1 guest");
             txtMealMaxGuests.requestFocus();
+            return;
         }
 
         if (mealLocation.isEmpty())
         {
             txtMealLocation.setError("No location set");
             txtMealLocation.requestFocus();
+            return;
         }
 
         // no idea how to get id, fix later
@@ -83,11 +87,12 @@ public class CreateLobby extends AppCompatActivity {
         String formattedDate = df.format(c);
         FirebaseAuth mAuth = FirebaseAuth.getInstance();
         FirebaseUser user = mAuth.getCurrentUser();
-
+//        user.getDisplayName()
         Lobby lobby = new Lobby(user.getDisplayName(), mealName, mealPrice, mealIngredients, formattedDate, "no location yet", maxGuests );
 
         DatabaseReference lobbyRef = FirebaseDatabase.getInstance().getReference("Rooms");
-        lobbyRef.push().setValue(lobby);
+        DatabaseReference roomRef = lobbyRef.push();
+        roomRef.setValue(lobby);
     }
 
 

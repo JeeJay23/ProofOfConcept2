@@ -23,7 +23,8 @@ public class MainMenuScreen extends AppCompatActivity implements View.OnClickLis
 
         findViewById(R.id.BtnToLoginScreen).setOnClickListener(this);
         findViewById(R.id.BtnToLobbyScreen).setOnClickListener(this);
-        findViewById(R.id.BtnToProfileScreen).setOnClickListener(this);
+        findViewById(R.id.btnToProfileScreen).setOnClickListener(this);
+        findViewById(R.id.btnToCreateLobbyScreen).setOnClickListener(this);
     }
 
     //when cicked on a button go to that activity
@@ -41,8 +42,12 @@ public class MainMenuScreen extends AppCompatActivity implements View.OnClickLis
                 break;
 
             //when clicked on profilescreen
-            case R.id.BtnToProfileScreen:
+            case R.id.btnToProfileScreen:
                 startActivity(new Intent(this, ProfileScreen.class));
+                break;
+
+            case R.id.btnToCreateLobbyScreen:
+                startActivity(new Intent(this, CreateLobby.class));
                 break;
         }
     }
