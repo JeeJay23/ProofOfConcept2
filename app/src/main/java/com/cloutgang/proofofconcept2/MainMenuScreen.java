@@ -20,6 +20,7 @@ public class MainMenuScreen extends AppCompatActivity implements View.OnClickLis
 
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+        getSupportActionBar().setTitle("FeedMe");
 
         findViewById(R.id.BtnToLoginScreen).setOnClickListener(this);
         findViewById(R.id.BtnToLobbyScreen).setOnClickListener(this);

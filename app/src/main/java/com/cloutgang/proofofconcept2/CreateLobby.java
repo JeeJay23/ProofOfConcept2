@@ -28,7 +28,7 @@ public class CreateLobby extends AppCompatActivity {
 
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-
+        getSupportActionBar().setTitle("FeedMe");
 
         txtMealName = findViewById(R.id.txtxName);
         txtMealPrice = findViewById(R.id.txtPrice);
@@ -131,5 +131,4 @@ public class CreateLobby extends AppCompatActivity {
         }
         return true;
     }
-
 }
