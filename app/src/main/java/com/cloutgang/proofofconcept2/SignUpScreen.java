@@ -38,8 +38,6 @@ public class SignUpScreen extends AppCompatActivity implements View.OnClickListe
         mAuth = FirebaseAuth.getInstance();
 
         findViewById(R.id.BtnSignUp).setOnClickListener(this);
-
-
     }
 
     //register the user
