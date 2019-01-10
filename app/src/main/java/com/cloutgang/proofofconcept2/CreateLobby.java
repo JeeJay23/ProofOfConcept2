@@ -17,7 +17,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import java.text.SimpleDateFormat;
 
 public class CreateLobby extends AppCompatActivity {
-
+    FirebaseAuth mAuth;
     EditText txtMealName, txtMealPrice, txtMealIngredient, txtMealMaxGuests, txtMealLocation;
 
     @Override
@@ -80,10 +80,9 @@ public class CreateLobby extends AppCompatActivity {
 
         SimpleDateFormat df = new SimpleDateFormat("dd-MMM-yyyy");
         String formattedDate = df.format(c);
-
-        Lobby lobby = new Lobby("no owner logic yet", mealName, mealPrice, mealIngredients, formattedDate, "no location yet", maxGuests );
-
+        Lobby lobby = new Lobby(mAuth.getCurrentUser().getDisplayName(), mealName, mealPrice, mealIngredients, formattedDate, "no location yet", maxGuests );
         DatabaseReference lobbyRef = FirebaseDatabase.getInstance().getReference("Rooms");
+        DatabaseReference.
         lobbyRef.push().setValue(lobby);
     }
 
