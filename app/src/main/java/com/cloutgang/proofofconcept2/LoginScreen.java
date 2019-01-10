@@ -7,6 +7,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Patterns;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -17,6 +18,7 @@ import com.google.firebase.auth.FirebaseAuth;
 public class LoginScreen extends AppCompatActivity implements View.OnClickListener {
 
     FirebaseAuth mAuth;
+    ProgressBar progressBar;
     EditText editTextUsername, editTextPassword;
 
     @Override
@@ -25,6 +27,8 @@ public class LoginScreen extends AppCompatActivity implements View.OnClickListen
         setContentView(R.layout.activity_login_screen);
 
         mAuth = FirebaseAuth.getInstance();
+
+        progressBar = (ProgressBar) findViewById(R.id.progressBar);
 
         findViewById(R.id.textViewLogin).setOnClickListener(this);
         findViewById(R.id.BtnLogin).setOnClickListener(this);
@@ -69,10 +73,16 @@ public class LoginScreen extends AppCompatActivity implements View.OnClickListen
             return;
         }
 
+        //show the progressBar
+        progressBar.setVisibility(View.VISIBLE);
+
         //try to sign in
         mAuth.signInWithEmailAndPassword(username, password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
+
+                //hide the progressBar
+                progressBar.setVisibility(View.GONE);
                 //when successful finish this activity and go to the profile activity
                 if(task.isSuccessful()){
                     finish();
