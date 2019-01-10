@@ -18,7 +18,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import java.text.SimpleDateFormat;
 
 public class CreateLobby extends AppCompatActivity {
-
+    FirebaseAuth mAuth;
     EditText txtMealName, txtMealPrice, txtMealIngredient, txtMealMaxGuests, txtMealLocation;
 
     @Override
