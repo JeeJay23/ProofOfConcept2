@@ -74,6 +74,9 @@ public class SignUpScreen extends AppCompatActivity implements View.OnClickListe
             return;
         }
 
+        //who this?
+        //mAuth.
+
         //when everything is filled in correctly, send the username and password to Firebase
         mAuth.createUserWithEmailAndPassword(username, password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
             @Override
@@ -81,7 +84,7 @@ public class SignUpScreen extends AppCompatActivity implements View.OnClickListe
                 //check if the registration succeeded
                 if(task.isSuccessful()){
                     finish();
-                    startActivity(new Intent(SignUpScreen.this, ProfileScreen.class));
+                    startActivity(new Intent(SignUpScreen.this, CreateLobby.class));
                     Toast.makeText(getApplicationContext(), "User Registered", Toast.LENGTH_SHORT).show();
                 }
                 else{
