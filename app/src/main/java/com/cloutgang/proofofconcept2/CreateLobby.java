@@ -1,7 +1,12 @@
 package com.cloutgang.proofofconcept2;
 
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.location.Location;
+import android.location.LocationListener;
+import android.location.LocationManager;
 import android.os.Bundle;
+import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
@@ -20,6 +25,9 @@ import java.text.SimpleDateFormat;
 public class CreateLobby extends AppCompatActivity {
     FirebaseAuth mAuth;
     EditText txtMealName, txtMealPrice, txtMealIngredient, txtMealMaxGuests, txtMealLocation;
+    LocationListener locationListener;
+    LocationManager locationManager;
+    String locationString;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,22 +36,42 @@ public class CreateLobby extends AppCompatActivity {
 
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        getSupportActionBar().setTitle("FeedMe");
+
 
         txtMealName = findViewById(R.id.txtxName);
         txtMealPrice = findViewById(R.id.txtPrice);
         txtMealIngredient = findViewById(R.id.txtIngredients);
         txtMealMaxGuests = findViewById(R.id.txtMaxGuests);
         txtMealLocation = findViewById(R.id.txtLocation);
+        locationManager = (LocationManager) getSystemService(LOCATION_SERVICE);
+        locationListener = new LocationListener() {
+            @Override
+            public void onLocationChanged(Location location) {
+                locationString = "/n" + location.getLongitude() + " " + location.getLatitude();
+            }
+
+            @Override
+            public void onStatusChanged(String provider, int status, Bundle extras) {
+
+            }
+
+            @Override
+            public void onProviderEnabled(String provider) {
+
+            }
+
+            @Override
+            public void onProviderDisabled(String provider) {
+
+            }
+        };
     }
 
-    public void SubmitLobby(View view)
-    {
+    public void SubmitLobby(View view) {
         RegisterUser();
     }
 
-    private void RegisterUser()
-    {
+    private void RegisterUser() {
         String mealName = txtMealName.getText().toString().trim();
         String mealPrice = txtMealPrice.getText().toString().trim();
         String mealIngredients = txtMealIngredient.getText().toString().trim();
@@ -51,29 +79,25 @@ public class CreateLobby extends AppCompatActivity {
         int maxGuests = Integer.parseInt(maxGuestsS);
         String mealLocation = txtMealLocation.getText().toString().trim();
 
-        if (mealName.isEmpty())
-        {
+        if (mealName.isEmpty()) {
             txtMealName.setError("No name set");
             txtMealName.requestFocus();
             return;
         }
 
-        if (mealPrice.isEmpty())
-        {
+        if (mealPrice.isEmpty()) {
             txtMealPrice.setError("No price set");
             txtMealPrice.requestFocus();
             return;
         }
 
-        if (maxGuests == 0)
-        {
+        if (maxGuests == 0) {
             txtMealMaxGuests.setError("Need at least 1 guest");
             txtMealMaxGuests.requestFocus();
             return;
         }
 
-        if (mealLocation.isEmpty())
-        {
+        if (mealLocation.isEmpty()) {
             txtMealLocation.setError("No location set");
             txtMealLocation.requestFocus();
             return;
@@ -83,21 +107,27 @@ public class CreateLobby extends AppCompatActivity {
 
         java.util.Date c = java.util.Calendar.getInstance().getTime();
 
-        SimpleDateFormat df = new SimpleDateFormat("dd-MMM-yyyy-hh:mm");
+        SimpleDateFormat df = new SimpleDateFormat("dd-MMM-yyyy");
         String formattedDate = df.format(c);
         FirebaseAuth mAuth = FirebaseAuth.getInstance();
         FirebaseUser user = mAuth.getCurrentUser();
-
-        Lobby lobby = new Lobby(user.getDisplayName(), mealName, mealPrice, mealIngredients, formattedDate, mealLocation, maxGuests );
+        if (ActivityCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            // TODO: Consider calling
+            //    ActivityCompat#requestPermissions
+            // here to request the missing permissions, and then overriding
+            //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
+            //                                          int[] grantResults)
+            // to handle the case where the user grants the permission. See the documentation
+            // for ActivityCompat#requestPermissions for more details.
+            return;
+        }
+        locationManager.requestLocationUpdates("gps", 0, 1000, locationListener);
+        Lobby lobby = new Lobby(user.getDisplayName(), mealName, mealPrice, mealIngredients, formattedDate, locationString, maxGuests );
 
         DatabaseReference lobbyRef = FirebaseDatabase.getInstance().getReference("Rooms");
         DatabaseReference roomRef = lobbyRef.push();
         roomRef.setValue(lobby);
     }
-
-
-
-
 
     //run this when the Menu for the logout button is created (see app/res/menu)
     //this adds the menu to the activity
@@ -131,4 +161,5 @@ public class CreateLobby extends AppCompatActivity {
         }
         return true;
     }
+
 }
