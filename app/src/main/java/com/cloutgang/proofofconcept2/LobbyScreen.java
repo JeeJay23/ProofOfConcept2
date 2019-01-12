@@ -23,7 +23,6 @@ public class LobbyScreen extends AppCompatActivity {
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setTitle("FeedMe");
-
     }
 
     public void addTextView(View view)
