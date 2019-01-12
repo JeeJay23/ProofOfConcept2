@@ -46,21 +46,6 @@ public class LobbyScreen extends AppCompatActivity {
         setSupportActionBar(toolbar);
         getSupportActionBar().setTitle("FeedMe");
         lobbyList = new ArrayList<>();
-
-        // stuff that doesn't work
-//        ValueEventListener roomListener = new ValueEventListener() {
-//            @Override
-//            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-//                Toast.makeText(LobbyScreen.this, "data changed", Toast.LENGTH_LONG).show();
-//                Lobby lobby = dataSnapshot.getValue(Lobby.class);
-//                addTextView(lobby.meal);
-//            }
-//
-//            @Override
-//            public void onCancelled(@NonNull DatabaseError databaseError) {
-//
-//            }
-//        };
     }
 
     @Override
@@ -70,6 +55,8 @@ public class LobbyScreen extends AppCompatActivity {
         roomsRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+
+                lobbyList.clear();
 
                 for (DataSnapshot lobbySnap : dataSnapshot.getChildren()){
 
@@ -87,18 +74,6 @@ public class LobbyScreen extends AppCompatActivity {
             }
         });
     }
-
-//    public void addTextView(View view)
-//    {
-//        LinearLayout layout = findViewById(R.id.linearLayout);
-//
-//        TextView txtView = new TextView(this);
-//        txtView.setText("This is a test view");
-//
-//        Toast.makeText(LobbyScreen.this, roomsRef.toString(), Toast.LENGTH_LONG).show();
-//
-//        layout.addView(txtView);
-//    }
 
     //run this when the Menu for the logout button is created (see app/res/menu)
     //this adds the menu to the activity
