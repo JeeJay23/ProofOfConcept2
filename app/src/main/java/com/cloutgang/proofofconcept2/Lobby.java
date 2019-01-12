@@ -25,4 +25,9 @@ public class Lobby {
         this.location = location;
         this.maxGuests = maxGuests;
     }
+
+    public Lobby ()
+    {
+
+    }
 }
