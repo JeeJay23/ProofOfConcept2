@@ -75,7 +75,13 @@ public class CreateLobby extends AppCompatActivity {
         final String mealPrice = txtMealPrice.getText().toString().trim();
         final String mealIngredients = txtMealIngredient.getText().toString().trim();
         String maxGuestsS = txtMealMaxGuests.getText().toString().trim();
-        final int maxGuests = Integer.parseInt(maxGuestsS);
+        boolean correctGuests = true;
+        int maxGuests = 0;
+        try {
+            maxGuests = Integer.parseInt(maxGuestsS);
+        } catch (NumberFormatException nfe) {
+            correctGuests = false;
+        }
         final String mealLocation = txtMealLocation.getText().toString().trim();
 
         if (mealName.isEmpty()) {
@@ -83,7 +89,6 @@ public class CreateLobby extends AppCompatActivity {
             txtMealName.requestFocus();
             return;
         }
-
         if (mealPrice.isEmpty()) {
             txtMealPrice.setError("No price set");
             txtMealPrice.requestFocus();
@@ -91,7 +96,7 @@ public class CreateLobby extends AppCompatActivity {
         }
 
         if (maxGuests == 0) {
-            txtMealMaxGuests.setError("Need at least 1 guest");
+            txtMealMaxGuests.setError("Incorrect max guests");
             txtMealMaxGuests.requestFocus();
             return;
         }
@@ -103,7 +108,6 @@ public class CreateLobby extends AppCompatActivity {
         }
 
         progressBar.setVisibility(View.VISIBLE);
-
 
 
         java.util.Date c = java.util.Calendar.getInstance().getTime();
@@ -118,13 +122,13 @@ public class CreateLobby extends AppCompatActivity {
         if (ActivityCompat.checkSelfPermission(this, ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
             return;
         }
+        final int finalMaxGuests = maxGuests;
         client.getLastLocation().addOnSuccessListener(CreateLobby.this, new OnSuccessListener<Location>() {
             @Override
             public void onSuccess(Location location) {
-                if(location != null) {
+                if (location != null) {
                     locationString = "" + location.getLongitude() + " " + location.getLatitude();
-                    Lobby lobby = new Lobby(user.getDisplayName(), mealName, mealPrice, mealIngredients, formattedDate, locationString, maxGuests );
-
+                    Lobby lobby = new Lobby(user.getDisplayName(), mealName, mealPrice, mealIngredients, formattedDate, locationString, finalMaxGuests);
 
 
                     roomRef.setValue(lobby)
