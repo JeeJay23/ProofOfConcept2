@@ -6,6 +6,7 @@ import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.Bundle;
+import android.os.Debug;
 import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
@@ -118,7 +119,7 @@ public class CreateLobby extends AppCompatActivity {
         });
 
         java.util.Date c = java.util.Calendar.getInstance().getTime();
-        SimpleDateFormat df = new SimpleDateFormat("dd-MMM-yyyy");
+        SimpleDateFormat df = new SimpleDateFormat("dd-MMM-yyyy-hh:ss");
         String formattedDate = df.format(c);
 
         FirebaseAuth mAuth = FirebaseAuth.getInstance();
