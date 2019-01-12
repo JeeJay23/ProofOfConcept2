@@ -27,7 +27,7 @@ import com.google.firebase.database.FirebaseDatabase;
 
 import java.text.SimpleDateFormat;
 
-public class CreateLobby extends AppCompatActivity implements GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener, com.google.android.gms.location.LocationListener {
+public class CreateLobby extends AppCompatActivity {
     //implements GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener, com.google.android.gms.location.LocationListener
     FirebaseAuth mAuth;
     EditText txtMealName, txtMealPrice, txtMealIngredient, txtMealMaxGuests, txtMealLocation;
@@ -178,23 +178,5 @@ public class CreateLobby extends AppCompatActivity implements GoogleApiClient.Co
         return true;
     }
 
-    @Override
-    public void onConnected(@Nullable Bundle bundle) {
-        
-    }
 
-    @Override
-    public void onConnectionSuspended(int i) {
-
-    }
-
-    @Override
-    public void onConnectionFailed(@NonNull ConnectionResult connectionResult) {
-
-    }
-
-    @Override
-    public void onLocationChanged(Location location) {
-
-    }
 }
