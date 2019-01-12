@@ -119,7 +119,7 @@ public class CreateLobby extends AppCompatActivity {
         });
 
         java.util.Date c = java.util.Calendar.getInstance().getTime();
-        SimpleDateFormat df = new SimpleDateFormat("dd-MMM-yyyy-hh:ss");
+        SimpleDateFormat df = new SimpleDateFormat("dd/mm-hh:ss");
         String formattedDate = df.format(c);
 
         FirebaseAuth mAuth = FirebaseAuth.getInstance();
