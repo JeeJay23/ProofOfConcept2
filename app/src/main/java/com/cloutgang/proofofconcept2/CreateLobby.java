@@ -43,16 +43,24 @@ public class CreateLobby extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create_lobby);
-        requestPermission();
+
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         progressBar = (ProgressBar) findViewById(R.id.progressBar);
         getSupportActionBar().setTitle("FeedMe");
+
         txtMealName = findViewById(R.id.txtxName);
         txtMealPrice = findViewById(R.id.txtPrice);
         txtMealIngredient = findViewById(R.id.txtIngredients);
         txtMealMaxGuests = findViewById(R.id.txtMaxGuests);
         txtMealLocation = findViewById(R.id.txtLocation);
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+
+        requestPermission();
         client = LocationServices.getFusedLocationProviderClient(this);
     }
 
@@ -61,6 +69,7 @@ public class CreateLobby extends AppCompatActivity {
     }
 
     private void registerUser() {
+
         String mealName = txtMealName.getText().toString().trim();
         String mealPrice = txtMealPrice.getText().toString().trim();
         String mealIngredients = txtMealIngredient.getText().toString().trim();
@@ -92,11 +101,10 @@ public class CreateLobby extends AppCompatActivity {
             return;
         }
 
-        // no idea how to get id, fix later
-
         progressBar.setVisibility(View.VISIBLE);
 
-        java.util.Date c = java.util.Calendar.getInstance().getTime();
+
+
         if (ActivityCompat.checkSelfPermission(this, ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
             return;
         }
@@ -108,8 +116,11 @@ public class CreateLobby extends AppCompatActivity {
                 }
             }
         });
+
+        java.util.Date c = java.util.Calendar.getInstance().getTime();
         SimpleDateFormat df = new SimpleDateFormat("dd-MMM-yyyy");
         String formattedDate = df.format(c);
+
         FirebaseAuth mAuth = FirebaseAuth.getInstance();
         FirebaseUser user = mAuth.getCurrentUser();
 
@@ -146,7 +157,6 @@ public class CreateLobby extends AppCompatActivity {
 
         return true;
     }
-
 
     //this happens when you click on the options icon in the menu
     //for now we only have the logout case (we could add more in the future)
