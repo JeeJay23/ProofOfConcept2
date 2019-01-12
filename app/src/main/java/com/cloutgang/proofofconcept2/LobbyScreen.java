@@ -11,6 +11,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
@@ -21,6 +22,8 @@ import com.google.firebase.database.ValueEventListener;
 
 public class LobbyScreen extends AppCompatActivity {
 
+    DatabaseReference roomsRef;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -30,13 +33,14 @@ public class LobbyScreen extends AppCompatActivity {
         setSupportActionBar(toolbar);
         getSupportActionBar().setTitle("FeedMe");
 
+        roomsRef = FirebaseDatabase.getInstance().getReference("Rooms");
 
-        DatabaseReference roomsRef = FirebaseDatabase.getInstance().getReference("Rooms");
-
+        Toast.makeText(LobbyScreen.this, roomsRef.toString(), Toast.LENGTH_LONG);
 
         ValueEventListener roomListener = new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                Toast.makeText(LobbyScreen.this, "data changed", Toast.LENGTH_LONG).show();
                 Lobby lobby = dataSnapshot.getValue(Lobby.class);
                 addTextView(lobby.meal);
             }
@@ -57,6 +61,8 @@ public class LobbyScreen extends AppCompatActivity {
 
         TextView txtView = new TextView(this);
         txtView.setText("This is a test view");
+
+        Toast.makeText(LobbyScreen.this, roomsRef.toString(), Toast.LENGTH_LONG).show();
 
         layout.addView(txtView);
     }

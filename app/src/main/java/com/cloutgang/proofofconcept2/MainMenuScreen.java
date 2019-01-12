@@ -26,6 +26,7 @@ public class MainMenuScreen extends AppCompatActivity implements View.OnClickLis
         findViewById(R.id.BtnToLobbyScreen).setOnClickListener(this);
         findViewById(R.id.btnToProfileScreen).setOnClickListener(this);
         findViewById(R.id.btnToCreateLobbyScreen).setOnClickListener(this);
+        findViewById(R.id.btnToLobbyList).setOnClickListener(this);
     }
 
     //when cicked on a button go to that activity
@@ -50,6 +51,9 @@ public class MainMenuScreen extends AppCompatActivity implements View.OnClickLis
             case R.id.btnToCreateLobbyScreen:
                 startActivity(new Intent(this, CreateLobby.class));
                 break;
+
+            case R.id.btnToLobbyList:
+                startActivity(new Intent(this, LobbyScreen.class));
         }
     }
 
