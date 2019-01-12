@@ -9,6 +9,7 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -66,6 +67,12 @@ public class LobbyScreen extends AppCompatActivity {
 
                 LobbyAdapter lobbyAdapter = new LobbyAdapter(LobbyScreen.this, lobbyList);
                 listView.setAdapter(lobbyAdapter);
+                listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                    @Override
+                    public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                        Toast.makeText(LobbyScreen.this, lobbyList.get(i).date, Toast.LENGTH_SHORT).show();
+                    }
+                });
             }
 
             @Override
