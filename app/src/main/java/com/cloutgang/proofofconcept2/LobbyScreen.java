@@ -14,7 +14,7 @@ public class LobbyScreen extends AppCompatActivity {
         setContentView(R.layout.activity_lobby_screen);
     }
 
-    public void AddTextView(View view)
+    public void addTextView(View view)
     {
         LinearLayout layout = findViewById(R.id.linearLayout);
 

@@ -71,11 +71,11 @@ public class CreateLobby extends AppCompatActivity {
         };
     }
 
-    public void SubmitLobby(View view) {
-        RegisterUser();
+    public void submitLobby(View view) {
+        registerUser();
     }
 
-    private void RegisterUser() {
+    private void registerUser() {
         String mealName = txtMealName.getText().toString().trim();
         String mealPrice = txtMealPrice.getText().toString().trim();
         String mealIngredients = txtMealIngredient.getText().toString().trim();

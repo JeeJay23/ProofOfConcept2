@@ -38,7 +38,7 @@ public class MainActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
-    public void SendToFireBase(View view)
+    public void sendToFireBase(View view)
     {
         String key = ((EditText)findViewById(R.id.txtKey)).getText().toString();
         String value = ((EditText)findViewById(R.id.txtValue)).getText().toString();
