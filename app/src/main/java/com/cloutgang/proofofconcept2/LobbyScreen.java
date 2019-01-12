@@ -1,6 +1,7 @@
 package com.cloutgang.proofofconcept2;
 
 import android.content.Intent;
+import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
@@ -12,6 +13,11 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 public class LobbyScreen extends AppCompatActivity {
 
@@ -23,6 +29,26 @@ public class LobbyScreen extends AppCompatActivity {
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setTitle("FeedMe");
+
+
+        DatabaseReference roomsRef = FirebaseDatabase.getInstance().getReference("Rooms");
+
+
+        ValueEventListener roomListener = new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                Lobby lobby = dataSnapshot.getValue(Lobby.class);
+                addTextView(lobby.meal);
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        };
+
+        // get list of all rooms
+        // iterate through list adding text field with names of rooms
     }
 
     public void addTextView(View view)
@@ -31,6 +57,15 @@ public class LobbyScreen extends AppCompatActivity {
 
         TextView txtView = new TextView(this);
         txtView.setText("This is a test view");
+
+        layout.addView(txtView);
+    }
+
+    public void addTextView(String text){
+        LinearLayout layout = findViewById(R.id.linearLayout);
+
+        TextView txtView = new TextView(this);
+        txtView.setText(text);
 
         layout.addView(txtView);
     }
