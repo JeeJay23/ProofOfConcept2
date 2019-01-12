@@ -4,7 +4,11 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.util.Patterns;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ProgressBar;
@@ -35,6 +39,12 @@ public class LoginScreen extends AppCompatActivity implements View.OnClickListen
 
         editTextUsername = (EditText) findViewById(R.id.editTextUsernameLogin);
         editTextPassword = (EditText) findViewById(R.id.editTextPasswoordLogin);
+
+
+        Toolbar toolbar = findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setTitle("                         FeedMe");
+
     }
 
 
@@ -129,4 +139,10 @@ public class LoginScreen extends AppCompatActivity implements View.OnClickListen
                 break;
         }
     }
+
+
+
+
+
+
 }
