@@ -16,6 +16,10 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.ProgressBar;
 
+import com.google.android.gms.common.api.GoogleApiClient;
+import com.google.android.gms.location.FusedLocationProviderClient;
+import com.google.android.gms.location.LocationServices;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
@@ -23,53 +27,30 @@ import com.google.firebase.database.FirebaseDatabase;
 
 import java.text.SimpleDateFormat;
 
+import static android.Manifest.permission.ACCESS_FINE_LOCATION;
+
 public class CreateLobby extends AppCompatActivity {
+    private FusedLocationProviderClient client;
     FirebaseAuth mAuth;
     EditText txtMealName, txtMealPrice, txtMealIngredient, txtMealMaxGuests, txtMealLocation;
-    LocationListener locationListener;
-    LocationManager locationManager;
-    String locationString;
     ProgressBar progressBar;
+    String locationString;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create_lobby);
-
+        requestPermission();
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         progressBar = (ProgressBar) findViewById(R.id.progressBar);
         getSupportActionBar().setTitle("FeedMe");
-
-
-
         txtMealName = findViewById(R.id.txtxName);
         txtMealPrice = findViewById(R.id.txtPrice);
         txtMealIngredient = findViewById(R.id.txtIngredients);
         txtMealMaxGuests = findViewById(R.id.txtMaxGuests);
         txtMealLocation = findViewById(R.id.txtLocation);
-        locationManager = (LocationManager) getSystemService(LOCATION_SERVICE);
-        locationListener = new LocationListener() {
-            @Override
-            public void onLocationChanged(Location location) {
-                locationString = "/n" + location.getLongitude() + " " + location.getLatitude();
-            }
-
-            @Override
-            public void onStatusChanged(String provider, int status, Bundle extras) {
-
-            }
-
-            @Override
-            public void onProviderEnabled(String provider) {
-
-            }
-
-            @Override
-            public void onProviderDisabled(String provider) {
-
-            }
-        };
+        client = LocationServices.getFusedLocationProviderClient(this);
     }
 
     public void submitLobby(View view) {
@@ -113,24 +94,22 @@ public class CreateLobby extends AppCompatActivity {
         progressBar.setVisibility(View.VISIBLE);
 
         java.util.Date c = java.util.Calendar.getInstance().getTime();
-
+        if (ActivityCompat.checkSelfPermission(this, ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            return;
+        }
+        client.getLastLocation().addOnSuccessListener(CreateLobby.this, new OnSuccessListener<Location>() {
+            @Override
+            public void onSuccess(Location location) {
+                if(location != null) {
+                    locationString = location.toString();
+                }
+            }
+        });
         SimpleDateFormat df = new SimpleDateFormat("dd-MMM-yyyy");
         String formattedDate = df.format(c);
         FirebaseAuth mAuth = FirebaseAuth.getInstance();
         FirebaseUser user = mAuth.getCurrentUser();
 
-
-        if (ActivityCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-            // TODO: Consider calling
-            //    ActivityCompat#requestPermissions
-            // here to request the missing permissions, and then overriding
-            //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
-            //                                          int[] grantResults)
-            // to handle the case where the user grants the permission. See the documentation
-            // for ActivityCompat#requestPermissions for more details.
-            return;
-        }
-        locationManager.requestLocationUpdates("gps", 0, 1000, locationListener);
         Lobby lobby = new Lobby(user.getDisplayName(), mealName, mealPrice, mealIngredients, formattedDate, locationString, maxGuests );
 
         DatabaseReference lobbyRef = FirebaseDatabase.getInstance().getReference("Rooms");
@@ -139,7 +118,9 @@ public class CreateLobby extends AppCompatActivity {
 
         progressBar.setVisibility(View.GONE);
     }
-
+    private void requestPermission () {
+        ActivityCompat.requestPermissions(this, new String[] {ACCESS_FINE_LOCATION}, 1);
+    }
     //run this when the Menu for the logout button is created (see app/res/menu)
     //this adds the menu to the activity
     @Override
@@ -172,5 +153,6 @@ public class CreateLobby extends AppCompatActivity {
         }
         return true;
     }
+
 
 }
