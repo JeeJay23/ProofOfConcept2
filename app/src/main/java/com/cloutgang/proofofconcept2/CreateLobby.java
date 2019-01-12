@@ -76,7 +76,7 @@ public class CreateLobby extends AppCompatActivity {
         String mealIngredients = txtMealIngredient.getText().toString().trim();
         String maxGuestsS = txtMealMaxGuests.getText().toString().trim();
         int maxGuests = Integer.parseInt(maxGuestsS);
-        String mealLocation = txtMealLocation.getText().toString().trim();
+        final String mealLocation = txtMealLocation.getText().toString().trim();
 
         if (mealName.isEmpty()) {
             txtMealName.setError("No name set");
@@ -116,7 +116,14 @@ public class CreateLobby extends AppCompatActivity {
                     locationString = location.toString();
                 }
             }
+        }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+                locationString = mealLocation;
+            }
         });
+
+        locationString = mealLocation;
 
         java.util.Date c = java.util.Calendar.getInstance().getTime();
         SimpleDateFormat df = new SimpleDateFormat("dd/mm-hh:ss");
@@ -126,6 +133,7 @@ public class CreateLobby extends AppCompatActivity {
         FirebaseUser user = mAuth.getCurrentUser();
 
         Lobby lobby = new Lobby(user.getDisplayName(), mealName, mealPrice, mealIngredients, formattedDate, locationString, maxGuests );
+
 
         DatabaseReference lobbyRef = FirebaseDatabase.getInstance().getReference("Rooms");
         DatabaseReference roomRef = lobbyRef.push();
@@ -145,9 +153,11 @@ public class CreateLobby extends AppCompatActivity {
 
         progressBar.setVisibility(View.GONE);
     }
+
     private void requestPermission () {
         ActivityCompat.requestPermissions(this, new String[] {ACCESS_FINE_LOCATION}, 1);
     }
+
     //run this when the Menu for the logout button is created (see app/res/menu)
     //this adds the menu to the activity
     @Override
