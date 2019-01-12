@@ -86,7 +86,7 @@ public class SignUpScreen extends AppCompatActivity implements View.OnClickListe
                 //check if the registration succeeded
                 if(task.isSuccessful()){
                     finish();
-                    startActivity(new Intent(SignUpScreen.this, CreateLobby.class));
+                    startActivity(new Intent(SignUpScreen.this, LobbyScreen.class));
                     Toast.makeText(getApplicationContext(), "User Registered", Toast.LENGTH_SHORT).show();
                 }
                 else{
