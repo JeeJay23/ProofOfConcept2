@@ -171,10 +171,20 @@ public class ProfileScreen extends AppCompatActivity {
         //check if the user is correct and if the imageUrl isn't null before setting them in firebase
         if (user != null && profileImageUrl != null) {
             //change the user profile info in firebase
-            UserProfileChangeRequest profile = new UserProfileChangeRequest.Builder()
-                    .setDisplayName(displayName)
-                    .setPhotoUri(Uri.parse(profileImageUrl))
-                    .build();
+
+            UserProfileChangeRequest profile;
+
+            if (profileImageUrl != null){
+                profile = new UserProfileChangeRequest.Builder()
+                        .setDisplayName(displayName)
+                        .setPhotoUri(Uri.parse(profileImageUrl))
+                        .build();
+            }
+            else{
+                profile = new UserProfileChangeRequest.Builder()
+                        .setDisplayName(displayName)
+                        .build();
+            }
 
             //update the profile with the changes
             user.updateProfile(profile)
@@ -184,6 +194,9 @@ public class ProfileScreen extends AppCompatActivity {
                             //check if the task is successful
                             if (task.isSuccessful()) {
                                 Toast.makeText(ProfileScreen.this, "Profile Updated", Toast.LENGTH_SHORT).show();
+                            }
+                            else {
+                                Toast.makeText(ProfileScreen.this, "Profile failed to update", Toast.LENGTH_SHORT).show();
                             }
                         }
                     });
