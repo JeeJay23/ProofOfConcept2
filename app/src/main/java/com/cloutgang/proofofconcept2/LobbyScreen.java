@@ -38,8 +38,6 @@ public class LobbyScreen extends AppCompatActivity {
 
 
 
-
-
     //run this when the Menu for the logout button is created (see app/res/menu)
     //this adds the menu to the activity
     @Override
