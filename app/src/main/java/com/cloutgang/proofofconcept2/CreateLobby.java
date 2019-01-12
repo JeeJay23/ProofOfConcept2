@@ -71,11 +71,11 @@ public class CreateLobby extends AppCompatActivity {
 
     private void registerUser() {
 
-        String mealName = txtMealName.getText().toString().trim();
-        String mealPrice = txtMealPrice.getText().toString().trim();
-        String mealIngredients = txtMealIngredient.getText().toString().trim();
+        final String mealName = txtMealName.getText().toString().trim();
+        final String mealPrice = txtMealPrice.getText().toString().trim();
+        final String mealIngredients = txtMealIngredient.getText().toString().trim();
         String maxGuestsS = txtMealMaxGuests.getText().toString().trim();
-        int maxGuests = Integer.parseInt(maxGuestsS);
+        final int maxGuests = Integer.parseInt(maxGuestsS);
         final String mealLocation = txtMealLocation.getText().toString().trim();
 
         if (mealName.isEmpty()) {
@@ -106,6 +106,15 @@ public class CreateLobby extends AppCompatActivity {
 
 
 
+        java.util.Date c = java.util.Calendar.getInstance().getTime();
+        SimpleDateFormat df = new SimpleDateFormat("dd/mm-hh:ss");
+        final String formattedDate = df.format(c);
+
+        FirebaseAuth mAuth = FirebaseAuth.getInstance();
+        final FirebaseUser user = mAuth.getCurrentUser();
+
+        DatabaseReference lobbyRef = FirebaseDatabase.getInstance().getReference("Rooms");
+        final DatabaseReference roomRef = lobbyRef.push();
         if (ActivityCompat.checkSelfPermission(this, ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
             return;
         }
@@ -113,7 +122,25 @@ public class CreateLobby extends AppCompatActivity {
             @Override
             public void onSuccess(Location location) {
                 if(location != null) {
-                    locationString = location.toString();
+                    locationString = "" + location.getLongitude() + " " + location.getLatitude();
+                    Lobby lobby = new Lobby(user.getDisplayName(), mealName, mealPrice, mealIngredients, formattedDate, locationString, maxGuests );
+
+
+
+                    roomRef.setValue(lobby)
+                            .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                @Override
+                                public void onSuccess(Void aVoid) {
+                                    Toast.makeText(CreateLobby.this, "Data sent successfully", Toast.LENGTH_SHORT).show();
+                                }
+                            })
+                            .addOnFailureListener(new OnFailureListener() {
+                                @Override
+                                public void onFailure(@NonNull Exception e) {
+                                    Toast.makeText(CreateLobby.this, "Data failed to send", Toast.LENGTH_SHORT).show();
+                                }
+                            });
+
                 }
             }
         }).addOnFailureListener(new OnFailureListener() {
@@ -123,33 +150,8 @@ public class CreateLobby extends AppCompatActivity {
             }
         });
 
-        locationString = mealLocation;
+        //locationString = mealLocation;
 
-        java.util.Date c = java.util.Calendar.getInstance().getTime();
-        SimpleDateFormat df = new SimpleDateFormat("dd/mm-hh:ss");
-        String formattedDate = df.format(c);
-
-        FirebaseAuth mAuth = FirebaseAuth.getInstance();
-        FirebaseUser user = mAuth.getCurrentUser();
-
-        Lobby lobby = new Lobby(user.getDisplayName(), mealName, mealPrice, mealIngredients, formattedDate, locationString, maxGuests );
-
-
-        DatabaseReference lobbyRef = FirebaseDatabase.getInstance().getReference("Rooms");
-        DatabaseReference roomRef = lobbyRef.push();
-        roomRef.setValue(lobby)
-                .addOnSuccessListener(new OnSuccessListener<Void>() {
-                    @Override
-                    public void onSuccess(Void aVoid) {
-                        Toast.makeText(CreateLobby.this, "Data sent successfully", Toast.LENGTH_SHORT).show();
-                    }
-                })
-                .addOnFailureListener(new OnFailureListener() {
-                    @Override
-                    public void onFailure(@NonNull Exception e) {
-                        Toast.makeText(CreateLobby.this, "Data failed to send", Toast.LENGTH_SHORT).show();
-                    }
-                });
 
         progressBar.setVisibility(View.GONE);
     }
