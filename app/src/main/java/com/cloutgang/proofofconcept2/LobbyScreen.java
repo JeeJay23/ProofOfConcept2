@@ -10,6 +10,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -30,6 +31,7 @@ public class LobbyScreen extends AppCompatActivity {
     DatabaseReference roomsRef;
     ListView listView;
     List<Lobby> lobbyList;
+    ImageButton imageButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,6 +49,17 @@ public class LobbyScreen extends AppCompatActivity {
         setSupportActionBar(toolbar);
         getSupportActionBar().setTitle("FeedMe");
         lobbyList = new ArrayList<>();
+
+
+        //floatbutton stuff
+        imageButton = (ImageButton) findViewById(R.id.imageButton);
+        imageButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(LobbyScreen.this, CreateLobby.class);
+                startActivity(intent);
+            }
+        });
     }
 
     @Override
