@@ -46,7 +46,7 @@
         android:text="@string/dit_scherm_is_alleen_voor_nu"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@+id/toolbar" />
 
     <Button
         android:id="@+id/btnToCreateLobbyScreen"
@@ -86,13 +86,13 @@
 
     <TextView
         android:id="@+id/textView3"
-        android:layout_width="384dp"
-        android:layout_height="37dp"
+        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
         android:layout_marginBottom="32dp"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
         android:text="@string/profilescreen_zou_hetzelfde_moeten_geven_als_loginscreen_op_het_moment"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"/>
 </android.support.constraint.ConstraintLayout>

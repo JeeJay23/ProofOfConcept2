@@ -37,18 +37,15 @@ public class LobbyList extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_lobby_list);
 
-
         // List stuff
         listView = findViewById(R.id.List_View);
         roomsRef = FirebaseDatabase.getInstance().getReference("Rooms");
-
 
         // Toolbar stuff
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setTitle("FeedMe");
         lobbyList = new ArrayList<>();
-
 
         //floatbutton stuff
         imageButton = (ImageButton) findViewById(R.id.imageButton);
@@ -109,7 +106,6 @@ public class LobbyList extends AppCompatActivity {
                         b.putBoolean("owner", false);
                         intent.putExtras(b);
                         startActivity(intent);
-                        finish();
                     }
                 });
             }

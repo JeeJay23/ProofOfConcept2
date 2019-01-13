@@ -8,6 +8,9 @@
         android:id="@+id/txtMealName"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginLeft="16dp"
+        android:layout_marginRight="16dp"
+        android:layout_marginTop="8dp"
         android:text="mealName"
         android:textSize="30sp"
         android:textStyle="bold" />
@@ -16,7 +19,20 @@
         android:id="@+id/txtOwnername"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginLeft="16dp"
+        android:layout_marginRight="16dp"
         android:text="ownerName"
         android:textSize="18sp"
         android:textStyle="italic" />
+
+    <TextView
+        android:id="@+id/txtGuestCount"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="16dp"
+        android:layout_marginRight="16dp"
+        android:layout_marginBottom="8dp"
+        android:textAlignment="viewEnd"
+        android:layout_gravity="end"
+        android:text="x / x guests" />
 </LinearLayout>

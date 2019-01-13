@@ -33,10 +33,18 @@ public class LobbyAdapter extends ArrayAdapter<Lobby> {
 
         TextView mealName = listView.findViewById(R.id.txtMealName);
         TextView lobbyOwner = listView.findViewById(R.id.txtOwnername);
+        TextView guestCount = listView.findViewById(R.id.txtGuestCount);
 
         Lobby lobby = lobbyList.get(position);
         mealName.setText(lobby.meal);
         lobbyOwner.setText(lobby.ownerName);
+
+        try{
+            guestCount.setText(lobby.guestIDs.size() + "/" + lobby.maxGuests + " guests");
+        }
+        catch(Exception e){
+            guestCount.setText("0/" + lobby.maxGuests + " guests");
+        }
 
         return listView;
     }
