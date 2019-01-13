@@ -36,7 +36,7 @@ public class LobbyAdapter extends ArrayAdapter<Lobby> {
 
         Lobby lobby = lobbyList.get(position);
         mealName.setText(lobby.meal);
-        lobbyOwner.setText(lobby.owner);
+        lobbyOwner.setText(lobby.ownerName);
 
         return listView;
     }

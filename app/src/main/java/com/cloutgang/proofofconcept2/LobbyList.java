@@ -15,6 +15,7 @@ import android.widget.ListView;
 import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -73,6 +74,7 @@ public class LobbyList extends AppCompatActivity {
                 for (DataSnapshot lobbySnap : dataSnapshot.getChildren()){
 
                     Lobby lobby = lobbySnap.getValue(Lobby.class);
+                    lobby.id = lobbySnap.getKey();
                     lobbyList.add(lobby);
                 }
 
@@ -81,7 +83,14 @@ public class LobbyList extends AppCompatActivity {
                 listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                     @Override
                     public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                        Toast.makeText(LobbyList.this, lobbyList.get(i).date, Toast.LENGTH_SHORT).show();
+                        Toast.makeText(LobbyList.this, lobbyList.get(i).id, Toast.LENGTH_SHORT).show();
+
+                        FirebaseAuth mAuth = FirebaseAuth.getInstance();
+                        final FirebaseUser user = mAuth.getCurrentUser();
+
+                        lobbyList.get(i).addGuest(user.getDisplayName());
+
+                        roomsRef.child(lobbyList.get(i).id).setValue(lobbyList.get(i));
                     }
                 });
             }
