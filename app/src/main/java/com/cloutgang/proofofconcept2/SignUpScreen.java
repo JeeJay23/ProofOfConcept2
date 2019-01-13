@@ -34,7 +34,7 @@ public class SignUpScreen extends AppCompatActivity implements View.OnClickListe
 
         findViewById(R.id.textViewSignUp).setOnClickListener(this);
 
-        editTextEmail = (EditText) findViewById(R.id.editTextDisplayName);
+        editTextEmail = (EditText) findViewById(R.id.editTextEmailSignUp);
         editTextPassword = (EditText) findViewById(R.id.editTextPasswoordSignUp);
         editTextUsername = (EditText) findViewById(R.id.editTextUsernameSignUp);
         mAuth = FirebaseAuth.getInstance();
@@ -94,14 +94,13 @@ public class SignUpScreen extends AppCompatActivity implements View.OnClickListe
                 progressBar.setVisibility(View.GONE);
                 //check if the registration succeeded
                 if(task.isSuccessful()){
-                    finish();
                     //change the displayname of the current user
                     FirebaseUser currentUser = mAuth.getCurrentUser();
                     UserProfileChangeRequest profileUpdates = new UserProfileChangeRequest.Builder()
                             .setDisplayName(username).build();
-
                     currentUser.updateProfile(profileUpdates);
                     startActivity(new Intent(SignUpScreen.this, LobbyList.class));
+                    finish();
                     Toast.makeText(getApplicationContext(), "User Registered", Toast.LENGTH_SHORT).show();
                 }
                 else{

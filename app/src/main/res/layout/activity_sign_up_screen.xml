@@ -7,7 +7,7 @@
     tools:context=".SignUpScreen">
 
     <EditText
-        android:id="@+id/editTextUsernameSignUp"
+        android:id="@+id/editTextEmailSignUp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
@@ -93,7 +93,7 @@
         app:layout_constraintVertical_bias="0.588" />
 
     <EditText
-        android:id="@+id/displayNameEditText"
+        android:id="@+id/editTextUsernameSignUp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
