@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#ffff"
     tools:context=".ProfileScreen">
 
 
@@ -24,8 +25,9 @@
         android:layout_marginTop="72dp"
         android:layout_marginEnd="8dp"
         android:layout_marginRight="8dp"
-        android:text="tap on skull knight to choose a profile picture"
-        android:textSize="18sp"
+        android:text="Tap on the image to select another"
+        android:textColor="@color/cast_expanded_controller_background_color"
+        android:textSize="20sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -40,12 +42,13 @@
         android:layout_marginEnd="8dp"
         android:layout_marginRight="8dp"
         android:layout_marginBottom="8dp"
+        android:background="#FF1D25"
         android:text="@string/save"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/editTextDisplayName"
-        app:layout_constraintVertical_bias="0.183" />
+        app:layout_constraintVertical_bias="0.447" />
 
     <EditText
         android:id="@+id/editTextDisplayName"
@@ -53,16 +56,19 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:layout_marginLeft="8dp"
-        android:layout_marginTop="56dp"
+        android:layout_marginTop="84dp"
         android:layout_marginEnd="8dp"
         android:layout_marginRight="8dp"
         android:ems="10"
         android:inputType="textPersonName"
         android:text="@string/name"
+        android:textColor="@color/cast_expanded_controller_background_color"
+        android:textColorHint="@color/cast_expanded_controller_background_color"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.503"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageViewProfilePicture" />
+        app:layout_constraintTop_toBottomOf="@+id/imageViewProfilePicture"
+        tools:shadowColor="@color/cast_expanded_controller_background_color" />
 
 
     <ImageView xmlns:app="http://schemas.android.com/apk/res-auto"
@@ -70,15 +76,15 @@
         android:id="@+id/imageViewProfilePicture"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:maxHeight="300px"
-        android:maxWidth="300px"
-        android:adjustViewBounds= "true"
         android:layout_marginStart="8dp"
         android:layout_marginLeft="8dp"
-        android:layout_marginTop="28dp"
+        android:layout_marginTop="48dp"
         android:layout_marginEnd="8dp"
         android:layout_marginRight="8dp"
+        android:adjustViewBounds="true"
         android:contentDescription="@string/profile_image"
+        android:maxWidth="300px"
+        android:maxHeight="300px"
         android:scaleType="centerCrop"
         android:src="@drawable/berserk_profilepic"
         app:layout_constraintEnd_toEndOf="parent"
