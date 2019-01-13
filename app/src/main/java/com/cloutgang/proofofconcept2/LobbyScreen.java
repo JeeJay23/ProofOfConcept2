@@ -1,6 +1,10 @@
 package com.cloutgang.proofofconcept2;
 
+import android.Manifest;
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.location.Location;
+import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -9,6 +13,9 @@ import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.location.FusedLocationProviderClient;
+import com.google.android.gms.location.LocationServices;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -17,19 +24,33 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import static android.Manifest.permission.ACCESS_FINE_LOCATION;
+
 public class LobbyScreen extends AppCompatActivity {
 
     String lobbyId;
     Lobby lobby;
     DatabaseReference roomRef;
     boolean owner;
-
+    private FusedLocationProviderClient client;
     TextView txtMeal;
     TextView txtOwner;
     TextView txtPrice;
     TextView txtIngredient;
+    TextView txtDistance;
     ScrollView guestScroll;
     LinearLayout guestLayout;
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        requestPermission();
+        client = LocationServices.getFusedLocationProviderClient(this);
+    }
+
+    private void requestPermission() {
+        ActivityCompat.requestPermissions(this, new String[]{ACCESS_FINE_LOCATION}, 1);
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,12 +61,13 @@ public class LobbyScreen extends AppCompatActivity {
         txtOwner = findViewById(R.id.txtOwner);
         txtPrice = findViewById(R.id.txtPrice);
         txtIngredient = findViewById(R.id.txtIngredients);
+        txtDistance = findViewById(R.id.txtDistance);
         guestScroll = findViewById(R.id.GuestScrollView);
         guestLayout = findViewById(R.id.GuestList);
 
         Bundle b = getIntent().getExtras();
 
-        if (b != null){
+        if (b != null) {
             lobbyId = b.getCharSequence("key").toString();
             owner = b.getBoolean("owner");
         }
@@ -58,11 +80,33 @@ public class LobbyScreen extends AppCompatActivity {
 
                 lobby = dataSnapshot.getValue(Lobby.class);
 
-                try{
+                try {
                     txtMeal.setText(lobby.meal);
                     txtOwner.setText(lobby.ownerName);
                     txtPrice.setText("Price: " + lobby.price);
                     txtIngredient.setText("Ingredients: " + lobby.ingredients);
+
+                    String locationString = lobby.location;
+                    String longtitude = locationString.split(" ")[0];
+                    String latitude = locationString.split(" ")[1];
+
+                    final Location lobbyLocation = new Location("");
+                    lobbyLocation.setLongitude(Double.parseDouble(longtitude));
+                    lobbyLocation.setLatitude(Double.parseDouble(latitude));
+
+                    if (ActivityCompat.checkSelfPermission(this, ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+                        return;
+                    }
+                    client.getLastLocation().addOnSuccessListener(LobbyScreen.this, new OnSuccessListener<Location>() {
+                        @Override
+                        public void onSuccess(Location location) {
+                            if (location != null) {
+                                float distanceToLobby = location.distanceTo(lobbyLocation);
+                                txtDistance.setText("" + distanceToLobby);
+                            }
+                        }
+                    });
+
 
                     fillGuestList();
                 }
