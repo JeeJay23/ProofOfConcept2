@@ -12,9 +12,9 @@
 
     <application
         android:allowBackup="true"
-        android:icon="@mipmap/feedmelogo"
         android:label="Feed.me"
-        android:roundIcon="@mipmap/feedmelogo"
+        android:icon="@drawable/feedmecircle"
+        android:roundIcon="@drawable/feedmecircle"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity android:name=".SplashScreen">
