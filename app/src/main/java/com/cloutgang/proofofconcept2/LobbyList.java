@@ -144,7 +144,6 @@ public class LobbyList extends AppCompatActivity {
                 break;
 
             case R.id.menuProfile:
-                finish();
                 startActivity(new Intent(this, ProfileScreen.class));
                 break;
 
