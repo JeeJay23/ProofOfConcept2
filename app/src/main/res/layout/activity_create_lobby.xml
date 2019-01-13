@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#fff"
     tools:context="com.cloutgang.proofofconcept2.CreateLobby">
 
     <android.support.v7.widget.Toolbar
@@ -24,6 +25,9 @@
         android:ems="10"
         android:hint="@string/mealNameField"
         android:inputType="textPersonName"
+        android:textColor="@color/cast_expanded_controller_background_color"
+        android:textColorHighlight="@color/cast_expanded_controller_background_color"
+        android:textColorHint="@color/cast_expanded_controller_background_color"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
@@ -41,6 +45,9 @@
         android:ems="10"
         android:hint="@string/mealIngredients"
         android:inputType="textPersonName"
+        android:textColor="@color/cast_expanded_controller_background_color"
+        android:textColorHighlight="@color/cast_expanded_controller_background_color"
+        android:textColorHint="@color/cast_expanded_controller_background_color"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/txtxName" />
@@ -57,6 +64,9 @@
         android:ems="10"
         android:hint="@string/mealPrice"
         android:inputType="textPersonName"
+        android:textColor="@color/cast_expanded_controller_background_color"
+        android:textColorHighlight="@color/cast_expanded_controller_background_color"
+        android:textColorHint="@color/cast_expanded_controller_background_color"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/txtIngredients" />
@@ -73,31 +83,19 @@
         android:ems="10"
         android:hint="@string/mealMaxGuests"
         android:inputType="textPersonName"
+        android:textColor="@color/cast_expanded_controller_background_color"
+        android:textColorHighlight="@color/cast_expanded_controller_background_color"
+        android:textColorHint="@color/cast_expanded_controller_background_color"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/txtPrice" />
 
-    <EditText
-        android:id="@+id/txtLocation"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginLeft="16dp"
-        android:layout_marginTop="16dp"
-        android:layout_marginEnd="16dp"
-        android:layout_marginRight="16dp"
-        android:ems="10"
-        android:hint="@string/mealLocation"
-        android:inputType="textPersonName"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/txtMaxGuests" />
-
     <Button
         android:id="@+id/btnSubmitLobby"
-        android:layout_width="wrap_content"
+        android:layout_width="114dp"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="16dp"
+        android:layout_marginBottom="76dp"
+        android:background="#FF1D25"
         android:onClick="submitLobby"
         android:text="Create Lobby"
         app:layout_constraintBottom_toBottomOf="parent"
