@@ -3,6 +3,7 @@ package com.cloutgang.proofofconcept2;
 import android.Manifest;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.graphics.Color;
 import android.location.Location;
 import android.support.v4.app.ActivityCompat;
 import android.provider.ContactsContract;
@@ -146,6 +147,7 @@ public class LobbyScreen extends AppCompatActivity {
                 Log.i("HELPME", guestName);
                 TextView text = new TextView(this);
                 text.setText(guestName);
+                text.setTextColor(Color.BLACK);
                 guestLayout.addView(text);
             }
         }
