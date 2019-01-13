@@ -119,6 +119,7 @@ public class CreateLobby extends AppCompatActivity {
 
         DatabaseReference lobbyRef = FirebaseDatabase.getInstance().getReference("Rooms");
         final DatabaseReference roomRef = lobbyRef.push();
+
         if (ActivityCompat.checkSelfPermission(this, ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
             return;
         }
@@ -126,10 +127,11 @@ public class CreateLobby extends AppCompatActivity {
         client.getLastLocation().addOnSuccessListener(CreateLobby.this, new OnSuccessListener<Location>() {
             @Override
             public void onSuccess(Location location) {
+
                 if (location != null) {
+
                     locationString = "" + location.getLongitude() + " " + location.getLatitude();
                     Lobby lobby = new Lobby(user.getUid(), mealName, mealPrice, mealIngredients, formattedDate, locationString, finalMaxGuests);
-
 
                     roomRef.setValue(lobby)
                             .addOnSuccessListener(new OnSuccessListener<Void>() {

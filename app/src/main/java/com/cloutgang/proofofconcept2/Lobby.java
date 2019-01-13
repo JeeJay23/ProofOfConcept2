@@ -1,5 +1,7 @@
 package com.cloutgang.proofofconcept2;
 
+import com.google.firebase.database.Exclude;
+
 /**
  * Created by jvjad on 09-Jan-19.
  */
@@ -7,6 +9,11 @@ package com.cloutgang.proofofconcept2;
 public class Lobby {
 
     public String owner;
+
+    // exclude tag causes id not to be saved in the database
+    @Exclude
+    public String id;
+
     public int[] guestIDs;
     public String meal;
     public String price;
@@ -28,6 +35,6 @@ public class Lobby {
 
     public Lobby ()
     {
-
+        // empty constructer required for saving class in firebase
     }
 }
