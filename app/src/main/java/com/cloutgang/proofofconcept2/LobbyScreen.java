@@ -3,6 +3,8 @@ package com.cloutgang.proofofconcept2;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.widget.LinearLayout;
+import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -22,6 +24,10 @@ public class LobbyScreen extends AppCompatActivity {
 
     TextView txtMeal;
     TextView txtOwner;
+    TextView txtPrice;
+    TextView txtIngredient;
+    ScrollView guestScroll;
+    LinearLayout guestLayout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,6 +36,11 @@ public class LobbyScreen extends AppCompatActivity {
 
         txtMeal = findViewById(R.id.txtMeal);
         txtOwner = findViewById(R.id.txtOwner);
+        txtPrice = findViewById(R.id.txtPrice);
+        txtIngredient = findViewById(R.id.txtIngredients);
+        guestScroll = findViewById(R.id.GuestScrollView);
+        guestLayout = findViewById(R.id.GuestList);
+
 
         Bundle b = getIntent().getExtras();
 
@@ -49,6 +60,10 @@ public class LobbyScreen extends AppCompatActivity {
                 try{
                     txtMeal.setText(lobby.meal);
                     txtOwner.setText(lobby.ownerName);
+                    txtPrice.setText("Price: " + lobby.price);
+                    txtIngredient.setText("Ingredients: " + lobby.ingredients);
+
+                    fillGuestList();
                 }
                 catch (Exception e){
                     Log.e("HELPME", e.getMessage());
@@ -60,6 +75,23 @@ public class LobbyScreen extends AppCompatActivity {
 
             }
         });
+    }
+
+    void fillGuestList()
+    {
+        guestLayout.removeAllViewsInLayout();
+        try{
+            for (String guestName : lobby.guestIDs){
+                Log.i("HELPME", guestName);
+                TextView text = new TextView(this);
+                text.setText(guestName);
+                guestLayout.addView(text);
+            }
+        }
+        catch (NullPointerException e){
+            // This only happens if user creates a room.
+        }
+
     }
 
     @Override
