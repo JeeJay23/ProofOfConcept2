@@ -131,7 +131,7 @@ public class CreateLobby extends AppCompatActivity {
                 if (location != null) {
 
                     locationString = "" + location.getLongitude() + " " + location.getLatitude();
-                    Lobby lobby = new Lobby(user.getUid(), mealName, mealPrice, mealIngredients, formattedDate, locationString, finalMaxGuests);
+                    Lobby lobby = new Lobby(user.getUid(), user.getDisplayName(), mealName, mealPrice, mealIngredients, formattedDate, locationString, finalMaxGuests);
 
                     roomRef.setValue(lobby)
                             .addOnSuccessListener(new OnSuccessListener<Void>() {
