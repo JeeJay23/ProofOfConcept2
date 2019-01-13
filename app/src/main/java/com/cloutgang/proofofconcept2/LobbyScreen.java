@@ -105,7 +105,7 @@ public class LobbyScreen extends AppCompatActivity {
                     lobbyLocation.setLongitude(Double.parseDouble(longtitude));
                     lobbyLocation.setLatitude(Double.parseDouble(latitude));
 
-                    if (ActivityCompat.checkSelfPermission(this, ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+                    if (ActivityCompat.checkSelfPermission(LobbyScreen.this, ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
                         return;
                     }
                     client.getLastLocation().addOnSuccessListener(LobbyScreen.this, new OnSuccessListener<Location>() {
