@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#000"
     tools:context=".LoginScreen">
 
     <android.support.v7.widget.Toolbar
@@ -38,7 +39,7 @@
         android:layout_marginRight="8dp"
         android:autofillHints=""
         android:ems="10"
-        android:hint="@string/username"
+        android:hint="@string/email"
         android:inputType="textEmailAddress"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.503"
