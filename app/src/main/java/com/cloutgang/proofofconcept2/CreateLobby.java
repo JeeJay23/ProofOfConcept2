@@ -56,7 +56,6 @@ public class CreateLobby extends AppCompatActivity {
         txtMealPrice = findViewById(R.id.txtPrice);
         txtMealIngredient = findViewById(R.id.txtIngredients);
         txtMealMaxGuests = findViewById(R.id.txtMaxGuests);
-        txtMealLocation = findViewById(R.id.txtLocation);
     }
 
     @Override
