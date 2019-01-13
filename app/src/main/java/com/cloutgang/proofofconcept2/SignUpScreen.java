@@ -15,11 +15,13 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseAuthUserCollisionException;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.auth.UserProfileChangeRequest;
 
 public class SignUpScreen extends AppCompatActivity implements View.OnClickListener {
 
 
-    EditText editTextUsername, editTextPassword;
+    EditText editTextUsername, editTextPassword, editTextEmail;
     ProgressBar progressBar;
     private FirebaseAuth mAuth;
 
@@ -32,9 +34,9 @@ public class SignUpScreen extends AppCompatActivity implements View.OnClickListe
 
         findViewById(R.id.textViewSignUp).setOnClickListener(this);
 
-        editTextUsername = (EditText) findViewById(R.id.editTextUsernameSignUp);
+        editTextEmail = (EditText) findViewById(R.id.editTextDisplayName);
         editTextPassword = (EditText) findViewById(R.id.editTextPasswoordSignUp);
-
+        editTextUsername = (EditText) findViewById(R.id.editTextUsernameSignUp);
         mAuth = FirebaseAuth.getInstance();
 
         findViewById(R.id.BtnSignUp).setOnClickListener(this);
@@ -42,20 +44,27 @@ public class SignUpScreen extends AppCompatActivity implements View.OnClickListe
 
     //register the user
     private void registerUser(){
-        String username = editTextUsername.getText().toString().trim();
+        String email = editTextEmail.getText().toString().trim();
         String password = editTextPassword.getText().toString().trim();
+        final String username = editTextUsername.getText().toString().trim();
 
-        //check if the username is filled in
-        if(username.isEmpty()){
-            editTextUsername.setError("Email is required");
+        //check if username is filled in
+        if(username.isEmpty()) {
+            editTextUsername.setError("Username is required");
             editTextUsername.requestFocus();
+            return;
+        }
+        //check if the email is filled in
+        if(email.isEmpty()){
+            editTextEmail.setError("Email is required");
+            editTextEmail.requestFocus();
             return;
         }
 
         //check if the email is legit
-        if(!Patterns.EMAIL_ADDRESS.matcher(username).matches()){
-            editTextUsername.setError("Please enter a valid email");
-            editTextUsername.requestFocus();
+        if(!Patterns.EMAIL_ADDRESS.matcher(email).matches()){
+            editTextEmail.setError("Please enter a valid email");
+            editTextEmail.requestFocus();
             return;
         }
 
@@ -77,7 +86,7 @@ public class SignUpScreen extends AppCompatActivity implements View.OnClickListe
         progressBar.setVisibility(View.VISIBLE);
 
         //when everything is filled in correctly, send the username and password to Firebase
-        mAuth.createUserWithEmailAndPassword(username, password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+        mAuth.createUserWithEmailAndPassword(email, password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
 
@@ -86,6 +95,12 @@ public class SignUpScreen extends AppCompatActivity implements View.OnClickListe
                 //check if the registration succeeded
                 if(task.isSuccessful()){
                     finish();
+                    //change the displayname of the current user
+                    FirebaseUser currentUser = mAuth.getCurrentUser();
+                    UserProfileChangeRequest profileUpdates = new UserProfileChangeRequest.Builder()
+                            .setDisplayName(username).build();
+
+                    currentUser.updateProfile(profileUpdates);
                     startActivity(new Intent(SignUpScreen.this, LobbyList.class));
                     Toast.makeText(getApplicationContext(), "User Registered", Toast.LENGTH_SHORT).show();
                 }
