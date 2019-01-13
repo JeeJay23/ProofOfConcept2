@@ -11,6 +11,7 @@ import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -39,6 +40,7 @@ public class CreateLobby extends AppCompatActivity {
     EditText txtMealName, txtMealPrice, txtMealIngredient, txtMealMaxGuests, txtMealLocation;
     ProgressBar progressBar;
     String locationString;
+    Lobby createdLobby;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -131,13 +133,23 @@ public class CreateLobby extends AppCompatActivity {
                 if (location != null) {
 
                     locationString = "" + location.getLongitude() + " " + location.getLatitude();
-                    Lobby lobby = new Lobby(user.getUid(), user.getDisplayName(), mealName, mealPrice, mealIngredients, formattedDate, locationString, finalMaxGuests);
+                    createdLobby = new Lobby(user.getUid(), user.getDisplayName(), mealName, mealPrice, mealIngredients, formattedDate, locationString, finalMaxGuests);
+                    createdLobby.id = roomRef.getKey();
 
-                    roomRef.setValue(lobby)
+                    roomRef.setValue(createdLobby)
                             .addOnSuccessListener(new OnSuccessListener<Void>() {
                                 @Override
                                 public void onSuccess(Void aVoid) {
                                     Toast.makeText(CreateLobby.this, "Data sent successfully", Toast.LENGTH_SHORT).show();
+
+                                    Intent intent = new Intent(CreateLobby.this, LobbyScreen.class);
+
+                                    Bundle b = new Bundle();
+                                    b.putCharSequence("key", createdLobby.id);
+                                    b.putBoolean("owner", true);
+                                    intent.putExtras(b);
+                                    startActivity(intent);
+                                    finish();
                                 }
                             })
                             .addOnFailureListener(new OnFailureListener() {

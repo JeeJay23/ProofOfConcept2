@@ -1,5 +1,6 @@
 package com.cloutgang.proofofconcept2;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -21,6 +22,7 @@ public class LobbyScreen extends AppCompatActivity {
     String lobbyId;
     Lobby lobby;
     DatabaseReference roomRef;
+    boolean owner;
 
     TextView txtMeal;
     TextView txtOwner;
@@ -41,16 +43,15 @@ public class LobbyScreen extends AppCompatActivity {
         guestScroll = findViewById(R.id.GuestScrollView);
         guestLayout = findViewById(R.id.GuestList);
 
-
         Bundle b = getIntent().getExtras();
 
         if (b != null){
             lobbyId = b.getCharSequence("key").toString();
+            owner = b.getBoolean("owner");
         }
 
-        Log.i("HELPME", lobbyId);
-
         roomRef = FirebaseDatabase.getInstance().getReference("Rooms/" + lobbyId);
+
         roomRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
@@ -79,8 +80,11 @@ public class LobbyScreen extends AppCompatActivity {
 
     void fillGuestList()
     {
+        // Remove all previous views
         guestLayout.removeAllViewsInLayout();
+
         try{
+            // Loop through all names in collection
             for (String guestName : lobby.guestIDs){
                 Log.i("HELPME", guestName);
                 TextView text = new TextView(this);
@@ -101,10 +105,20 @@ public class LobbyScreen extends AppCompatActivity {
         FirebaseAuth mAuth = FirebaseAuth.getInstance();
         final FirebaseUser user = mAuth.getCurrentUser();
 
-        if (lobby.guestIDs.contains(user.getDisplayName())){
-            lobby.guestIDs.remove(user.getDisplayName());
-            roomRef.setValue(lobby);
-            Toast.makeText(LobbyScreen.this, "Removed user from list", Toast.LENGTH_SHORT);
+        if (owner){
+
+            roomRef.removeValue();
+
+            Intent intent = new Intent(LobbyScreen.this, LobbyList.class);
+            startActivity(intent);
+        }
+        else{
+
+            if (lobby.guestIDs.contains(user.getDisplayName())){
+                lobby.guestIDs.remove(user.getDisplayName());
+                roomRef.setValue(lobby);
+                Toast.makeText(LobbyScreen.this, "Removed user from list", Toast.LENGTH_SHORT);
+            }
         }
     }
 }

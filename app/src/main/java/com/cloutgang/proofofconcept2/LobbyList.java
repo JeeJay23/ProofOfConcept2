@@ -98,6 +98,7 @@ public class LobbyList extends AppCompatActivity {
                         Intent intent = new Intent(LobbyList.this, LobbyScreen.class);
                         Bundle b = new Bundle();
                         b.putCharSequence("key", lobby.id);
+                        b.putBoolean("owner", false);
                         intent.putExtras(b);
                         startActivity(intent);
                         finish();
