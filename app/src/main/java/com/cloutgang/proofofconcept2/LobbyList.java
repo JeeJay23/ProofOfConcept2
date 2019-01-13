@@ -83,14 +83,24 @@ public class LobbyList extends AppCompatActivity {
                 listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                     @Override
                     public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                        Toast.makeText(LobbyList.this, lobbyList.get(i).id, Toast.LENGTH_SHORT).show();
+
+                        Lobby lobby = lobbyList.get(i);
+
+                        Toast.makeText(LobbyList.this, lobby.id, Toast.LENGTH_SHORT).show();
 
                         FirebaseAuth mAuth = FirebaseAuth.getInstance();
                         final FirebaseUser user = mAuth.getCurrentUser();
 
-                        lobbyList.get(i).addGuest(user.getDisplayName());
+                        lobby.addGuest(user.getDisplayName());
 
-                        roomsRef.child(lobbyList.get(i).id).setValue(lobbyList.get(i));
+                        roomsRef.child(lobby.id).setValue(lobby);
+
+                        Intent intent = new Intent(LobbyList.this, LobbyScreen.class);
+                        Bundle b = new Bundle();
+                        b.putCharSequence("key", lobby.id);
+                        intent.putExtras(b);
+                        startActivity(intent);
+                        finish();
                     }
                 });
             }
