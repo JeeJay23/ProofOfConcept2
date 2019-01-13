@@ -37,7 +37,11 @@
         <activity android:name=".SignUpScreen" />
         <activity android:name=".ProfileScreen" />
         <activity android:name=".CreateLobby" />
-        <activity android:name=".MainMenuScreen"></activity>
+        <activity android:name=".MainMenuScreen" />
+        <activity
+            android:name=".LobbyScreen"
+            android:parentActivityName=".LobbyList"
+            ></activity>
     </application>
 
 </manifest>
