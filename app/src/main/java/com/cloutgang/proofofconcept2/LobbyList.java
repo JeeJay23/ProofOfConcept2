@@ -34,7 +34,7 @@ public class LobbyList extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_lobby_screen);
+        setContentView(R.layout.activity_lobby_list);
 
 
         // List stuff
