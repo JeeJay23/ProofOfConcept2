@@ -24,6 +24,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
         <activity
             android:name=".DisplayMessageActivity"
             android:parentActivityName=".MainActivity">
@@ -31,17 +32,26 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".MainActivity" />
         </activity>
+
         <activity android:name=".MainActivity" />
         <activity android:name=".LoginScreen" />
         <activity android:name=".LobbyList" />
+
+        <activity
+            android:name=".LobbyScreen"
+            android:label="LobbyScreen"
+            android:parentActivityName="com.cloutgang.proofofconcept2.LoginScreen">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.cloutgang.proofofconcept2.LoginScreen" />
+        </activity>
+
         <activity android:name=".SignUpScreen" />
         <activity android:name=".ProfileScreen" />
         <activity android:name=".CreateLobby" />
         <activity android:name=".MainMenuScreen" />
-        <activity
-            android:name=".LobbyScreen"
-            android:parentActivityName=".LobbyList"
-            ></activity>
+
+
     </application>
 
 </manifest>
