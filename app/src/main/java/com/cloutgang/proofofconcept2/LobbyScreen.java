@@ -114,6 +114,7 @@ public class LobbyScreen extends AppCompatActivity {
                             if (location != null) {
                                 float distanceToLobby = location.distanceTo(lobbyLocation);
                                 distanceToLobby = distanceToLobby / 1000;
+                                distanceToLobby = Math.round(distanceToLobby);
                                 txtDistance.setText("" + distanceToLobby + "  km");
                             }
                         }
