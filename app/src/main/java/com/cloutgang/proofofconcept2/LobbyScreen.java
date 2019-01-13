@@ -113,12 +113,17 @@ public class LobbyScreen extends AppCompatActivity {
             startActivity(intent);
         }
         else{
-
-            if (lobby.guestIDs.contains(user.getDisplayName())){
-                lobby.guestIDs.remove(user.getDisplayName());
-                roomRef.setValue(lobby);
-                Toast.makeText(LobbyScreen.this, "Removed user from list", Toast.LENGTH_SHORT);
+            try{
+                if (lobby.guestIDs.contains(user.getDisplayName())){
+                    lobby.guestIDs.remove(user.getDisplayName());
+                    roomRef.setValue(lobby);
+                    Toast.makeText(LobbyScreen.this, "Removed user from list", Toast.LENGTH_SHORT);
+                }
             }
+            catch (Exception e){
+
+            }
+
         }
     }
 }
