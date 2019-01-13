@@ -168,9 +168,6 @@ public class CreateLobby extends AppCompatActivity {
             }
         });
 
-        //locationString = mealLocation;
-
-
         progressBar.setVisibility(View.GONE);
     }
 
@@ -209,6 +206,4 @@ public class CreateLobby extends AppCompatActivity {
         }
         return true;
     }
-
-
 }
