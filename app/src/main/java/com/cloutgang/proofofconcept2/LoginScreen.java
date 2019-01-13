@@ -40,7 +40,7 @@ public class LoginScreen extends AppCompatActivity implements View.OnClickListen
 
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        getSupportActionBar().setTitle("                         FeedMe");
+        getSupportActionBar().setTitle("                          FeedMe");
 
     }
 
