@@ -86,7 +86,15 @@ public class LobbyList extends AppCompatActivity {
 
                         Lobby lobby = lobbyList.get(i);
 
-                        Toast.makeText(LobbyList.this, lobby.id, Toast.LENGTH_SHORT).show();
+                        try{
+                            if (lobby.guestIDs.size() >= lobby.maxGuests){
+                                Toast.makeText(LobbyList.this, "Room is already full", Toast.LENGTH_LONG).show();
+                                return;
+                            }
+                        }
+                        catch (Exception e){
+
+                        }
 
                         FirebaseAuth mAuth = FirebaseAuth.getInstance();
                         final FirebaseUser user = mAuth.getCurrentUser();
@@ -112,6 +120,8 @@ public class LobbyList extends AppCompatActivity {
             }
         });
     }
+
+
 
     //run this when the Menu for the logout button is created (see app/res/menu)
     //this adds the menu to the activity
