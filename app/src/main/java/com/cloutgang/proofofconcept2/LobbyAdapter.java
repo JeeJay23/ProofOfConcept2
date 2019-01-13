@@ -1,6 +1,7 @@
 package com.cloutgang.proofofconcept2;
 
 import android.app.Activity;
+import android.graphics.Color;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
@@ -32,8 +33,11 @@ public class LobbyAdapter extends ArrayAdapter<Lobby> {
         View listView = inflater.inflate(R.layout.list_view, null, true);
 
         TextView mealName = listView.findViewById(R.id.txtMealName);
+        mealName.setTextColor(Color.BLACK);
         TextView lobbyOwner = listView.findViewById(R.id.txtOwnername);
+        lobbyOwner.setTextColor(Color.BLACK);
         TextView guestCount = listView.findViewById(R.id.txtGuestCount);
+
 
         Lobby lobby = lobbyList.get(position);
         mealName.setText(lobby.meal);
@@ -41,9 +45,11 @@ public class LobbyAdapter extends ArrayAdapter<Lobby> {
 
         try{
             guestCount.setText(lobby.guestIDs.size() + "/" + lobby.maxGuests + " guests");
+            guestCount.setTextColor(Color.BLACK);
         }
         catch(Exception e){
             guestCount.setText("0/" + lobby.maxGuests + " guests");
+            guestCount.setTextColor(Color.BLACK);
         }
 
         return listView;
