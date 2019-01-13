@@ -1,7 +1,11 @@
 package com.cloutgang.proofofconcept2;
 
+import android.Manifest;
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.location.Location;
 import android.support.annotation.NonNull;
+import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
@@ -14,6 +18,9 @@ import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.Toast;
 
+import com.google.android.gms.location.FusedLocationProviderClient;
+import com.google.android.gms.location.LocationServices;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -25,12 +32,15 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.ArrayList;
 import java.util.List;
 
+import static android.Manifest.permission.ACCESS_FINE_LOCATION;
+
 public class LobbyList extends AppCompatActivity {
 
     DatabaseReference roomsRef;
     ListView listView;
     List<Lobby> lobbyList;
     ImageButton imageButton;
+    private FusedLocationProviderClient client;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -61,6 +71,7 @@ public class LobbyList extends AppCompatActivity {
     @Override
     protected void onStart() {
         super.onStart();
+        client = LocationServices.getFusedLocationProviderClient(this);
 
         roomsRef.addValueEventListener(new ValueEventListener() {
             @Override
@@ -68,46 +79,55 @@ public class LobbyList extends AppCompatActivity {
 
                 lobbyList.clear();
 
-                for (DataSnapshot lobbySnap : dataSnapshot.getChildren()){
+                for (DataSnapshot lobbySnap : dataSnapshot.getChildren()) {
 
                     Lobby lobby = lobbySnap.getValue(Lobby.class);
                     lobby.id = lobbySnap.getKey();
                     lobbyList.add(lobby);
                 }
-
-                LobbyAdapter lobbyAdapter = new LobbyAdapter(LobbyList.this, lobbyList);
-                listView.setAdapter(lobbyAdapter);
-                listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                if (ActivityCompat.checkSelfPermission(LobbyList.this, ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+                    return;
+                }
+                client.getLastLocation().addOnSuccessListener(LobbyList.this, new OnSuccessListener<Location>() {
                     @Override
-                    public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                    public void onSuccess(Location location) {
+                        if (location != null) {
+                            LobbyAdapter lobbyAdapter = new LobbyAdapter(LobbyList.this, lobbyList, location);
+                            listView.setAdapter(lobbyAdapter);
+                            listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                                @Override
+                                public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
 
-                        Lobby lobby = lobbyList.get(i);
+                                    Lobby lobby = lobbyList.get(i);
 
-                        try{
-                            if (lobby.guestIDs.size() >= lobby.maxGuests){
-                                Toast.makeText(LobbyList.this, "Room is already full", Toast.LENGTH_LONG).show();
-                                return;
-                            }
+                                    try {
+                                        if (lobby.guestIDs.size() >= lobby.maxGuests) {
+                                            Toast.makeText(LobbyList.this, "Room is already full", Toast.LENGTH_LONG).show();
+                                            return;
+                                        }
+                                    } catch (Exception e) {
+
+                                    }
+
+                                    FirebaseAuth mAuth = FirebaseAuth.getInstance();
+                                    final FirebaseUser user = mAuth.getCurrentUser();
+
+                                    lobby.addGuest(user.getDisplayName());
+
+                                    roomsRef.child(lobby.id).setValue(lobby);
+
+                                    Intent intent = new Intent(LobbyList.this, LobbyScreen.class);
+                                    Bundle b = new Bundle();
+                                    b.putCharSequence("key", lobby.id);
+                                    b.putBoolean("owner", false);
+                                    intent.putExtras(b);
+                                    startActivity(intent);
+                                }
+                            });
                         }
-                        catch (Exception e){
-
-                        }
-
-                        FirebaseAuth mAuth = FirebaseAuth.getInstance();
-                        final FirebaseUser user = mAuth.getCurrentUser();
-
-                        lobby.addGuest(user.getDisplayName());
-
-                        roomsRef.child(lobby.id).setValue(lobby);
-
-                        Intent intent = new Intent(LobbyList.this, LobbyScreen.class);
-                        Bundle b = new Bundle();
-                        b.putCharSequence("key", lobby.id);
-                        b.putBoolean("owner", false);
-                        intent.putExtras(b);
-                        startActivity(intent);
                     }
                 });
+
             }
 
 
