@@ -6,9 +6,6 @@ import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Patterns;
-import android.view.Menu;
-import android.view.MenuInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ProgressBar;
@@ -97,7 +94,7 @@ public class LoginScreen extends AppCompatActivity implements View.OnClickListen
                 if(task.isSuccessful()){
                     finish();
                     Toast.makeText(getApplicationContext(), "Login successful", Toast.LENGTH_SHORT).show();
-                    Intent intent = new Intent(LoginScreen.this, LobbyScreen.class);
+                    Intent intent = new Intent(LoginScreen.this, LobbyList.class);
 
                     //make sure the user can't go back to the login activity with the back button
                     //this way the user has to make use of the logout button to return
@@ -120,7 +117,7 @@ public class LoginScreen extends AppCompatActivity implements View.OnClickListen
         //when the user is already logged in go to the profile activity
         if(mAuth.getCurrentUser() != null){
             finish();
-            startActivity(new Intent(this, LobbyScreen.class));
+            startActivity(new Intent(this, LobbyList.class));
         }
     }
 

@@ -11,9 +11,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ImageButton;
-import android.widget.LinearLayout;
 import android.widget.ListView;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
@@ -26,7 +24,7 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.ArrayList;
 import java.util.List;
 
-public class LobbyScreen extends AppCompatActivity {
+public class LobbyList extends AppCompatActivity {
 
     DatabaseReference roomsRef;
     ListView listView;
@@ -56,7 +54,7 @@ public class LobbyScreen extends AppCompatActivity {
         imageButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(LobbyScreen.this, CreateLobby.class);
+                Intent intent = new Intent(LobbyList.this, CreateLobby.class);
                 startActivity(intent);
             }
         });
@@ -78,12 +76,12 @@ public class LobbyScreen extends AppCompatActivity {
                     lobbyList.add(lobby);
                 }
 
-                LobbyAdapter lobbyAdapter = new LobbyAdapter(LobbyScreen.this, lobbyList);
+                LobbyAdapter lobbyAdapter = new LobbyAdapter(LobbyList.this, lobbyList);
                 listView.setAdapter(lobbyAdapter);
                 listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                     @Override
                     public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                        Toast.makeText(LobbyScreen.this, lobbyList.get(i).date, Toast.LENGTH_SHORT).show();
+                        Toast.makeText(LobbyList.this, lobbyList.get(i).date, Toast.LENGTH_SHORT).show();
                     }
                 });
             }

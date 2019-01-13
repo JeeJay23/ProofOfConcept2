@@ -40,7 +40,7 @@ public class MainMenuScreen extends AppCompatActivity implements View.OnClickLis
 
             //when clicked on lobbyscreen
             case R.id.BtnToLobbyScreen:
-                startActivity(new Intent(this, LobbyScreen.class));
+                startActivity(new Intent(this, LobbyList.class));
                 break;
 
             //when clicked on profilescreen
@@ -53,7 +53,7 @@ public class MainMenuScreen extends AppCompatActivity implements View.OnClickLis
                 break;
 
             case R.id.btnToLobbyList:
-                startActivity(new Intent(this, LobbyScreen.class));
+                startActivity(new Intent(this, LobbyList.class));
         }
     }
 
