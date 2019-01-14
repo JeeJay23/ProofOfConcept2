@@ -77,13 +77,13 @@ public class CreateLobby extends AppCompatActivity {
         final String mealIngredients = txtMealIngredient.getText().toString().trim();
         String maxGuestsS = txtMealMaxGuests.getText().toString().trim();
         boolean correctGuests = true;
+
         int maxGuests = 0;
         try {
             maxGuests = Integer.parseInt(maxGuestsS);
         } catch (NumberFormatException nfe) {
             correctGuests = false;
         }
-        final String mealLocation = txtMealLocation.getText().toString().trim();
 
         if (mealName.isEmpty()) {
             txtMealName.setError("No name set");
@@ -102,14 +102,7 @@ public class CreateLobby extends AppCompatActivity {
             return;
         }
 
-        if (mealLocation.isEmpty()) {
-            txtMealLocation.setError("No location set");
-            txtMealLocation.requestFocus();
-            return;
-        }
-
         progressBar.setVisibility(View.VISIBLE);
-
 
         java.util.Date c = java.util.Calendar.getInstance().getTime();
         SimpleDateFormat df = new SimpleDateFormat("dd/mm-hh:ss");
@@ -163,7 +156,7 @@ public class CreateLobby extends AppCompatActivity {
         }).addOnFailureListener(new OnFailureListener() {
             @Override
             public void onFailure(@NonNull Exception e) {
-                locationString = mealLocation;
+                //locationString = mealLocation;
             }
         });
 
