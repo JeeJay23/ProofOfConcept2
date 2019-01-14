@@ -112,11 +112,14 @@ public class LobbyScreen extends AppCompatActivity {
                     lobbyLocation.setLatitude(Double.parseDouble(latitude));
 
                     Geocoder geocoder = new Geocoder(LobbyScreen.this, Locale.getDefault());
+
                     List<Address> adresses;
 
                     adresses = geocoder.getFromLocation(lobbyLocation.getLatitude(), lobbyLocation.getLongitude(), 1);
 
-                    ((TextView)findViewById(R.id.txtLocation)).setText(adresses.get(0).getCountryName());
+                    if (adresses != null){
+                        ((TextView)findViewById(R.id.txtLocation)).setText(adresses.get(0).getPostalCode());
+                    }
 
                     if (ActivityCompat.checkSelfPermission(LobbyScreen.this, ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
                         return;
@@ -166,7 +169,6 @@ public class LobbyScreen extends AppCompatActivity {
         catch (NullPointerException e){
             // This only happens if user creates a room.
         }
-
     }
 
     @Override
@@ -194,14 +196,8 @@ public class LobbyScreen extends AppCompatActivity {
             catch (Exception e){
 
             }
-
         }
     }
-
-
-
-
-
 
     //run this when the Menu for the logout button is created (see app/res/menu)
     //this adds the menu to the activity
