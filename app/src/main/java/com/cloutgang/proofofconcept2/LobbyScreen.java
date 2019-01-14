@@ -4,6 +4,7 @@ import android.Manifest;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Color;
+import android.location.Geocoder;
 import android.location.Location;
 import android.support.v4.app.ActivityCompat;
 import android.provider.ContactsContract;
@@ -18,6 +19,7 @@ import android.widget.LinearLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
+import android.location.Address;
 
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationServices;
@@ -29,6 +31,9 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+
+import java.util.List;
+import java.util.Locale;
 
 import static android.Manifest.permission.ACCESS_FINE_LOCATION;
 
@@ -105,6 +110,13 @@ public class LobbyScreen extends AppCompatActivity {
                     final Location lobbyLocation = new Location("");
                     lobbyLocation.setLongitude(Double.parseDouble(longtitude));
                     lobbyLocation.setLatitude(Double.parseDouble(latitude));
+
+                    Geocoder geocoder = new Geocoder(LobbyScreen.this, Locale.getDefault());
+                    List<Address> adresses;
+
+                    adresses = geocoder.getFromLocation(lobbyLocation.getLatitude(), lobbyLocation.getLongitude(), 1);
+
+                    ((TextView)findViewById(R.id.txtLocation)).setText(adresses.get(0).getCountryName());
 
                     if (ActivityCompat.checkSelfPermission(LobbyScreen.this, ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
                         return;
