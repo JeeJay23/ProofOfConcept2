@@ -1,5 +1,7 @@
 package com.cloutgang.proofofconcept2;
 
+import android.app.DatePickerDialog;
+import android.app.TimePickerDialog;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.location.Location;
@@ -9,6 +11,7 @@ import android.os.Bundle;
 import android.os.Debug;
 import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
@@ -16,8 +19,11 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
+import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ProgressBar;
+import android.widget.TimePicker;
 import android.widget.Toast;
 
 import com.google.android.gms.common.api.GoogleApiClient;
@@ -31,8 +37,11 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.GregorianCalendar;
 
 import static android.Manifest.permission.ACCESS_FINE_LOCATION;
+
 
 public class CreateLobby extends AppCompatActivity {
     private FusedLocationProviderClient client;
@@ -41,6 +50,7 @@ public class CreateLobby extends AppCompatActivity {
     ProgressBar progressBar;
     String locationString;
     Lobby createdLobby;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,12 +66,41 @@ public class CreateLobby extends AppCompatActivity {
         txtMealPrice = findViewById(R.id.txtPrice);
         txtMealIngredient = findViewById(R.id.txtIngredients);
         txtMealMaxGuests = findViewById(R.id.txtMaxGuests);
+
+    }
+    Calendar date;
+    int year;
+    int monthOfYear;
+    int dayOfMonth;
+    int hourOfDay;
+    int minute;
+    public void showDateTimePicker(View view) {
+        final Calendar currentDate = Calendar.getInstance();
+        date = Calendar.getInstance();
+        new DatePickerDialog(CreateLobby.this, new DatePickerDialog.OnDateSetListener() {
+            @Override
+            public void onDateSet(DatePicker view, final int Hyear, final int HmonthOfYear, final int HdayOfMonth) {
+                date.set(year, monthOfYear, dayOfMonth);
+                new TimePickerDialog(CreateLobby.this, new TimePickerDialog.OnTimeSetListener() {
+                    @Override
+                    public void onTimeSet(TimePicker view, int HhourOfDay, int Hminute) {
+                        date.set(Calendar.HOUR_OF_DAY, hourOfDay);
+                        date.set(Calendar.MINUTE, minute);
+                        year = Hyear;
+                        monthOfYear = HmonthOfYear;
+                        dayOfMonth = HdayOfMonth;
+                        hourOfDay = HhourOfDay;
+                        minute = Hminute;
+
+                    }
+                }, currentDate.get(Calendar.HOUR_OF_DAY), currentDate.get(Calendar.MINUTE), false).show();
+            }
+        }, currentDate.get(Calendar.YEAR), currentDate.get(Calendar.MONTH), currentDate.get(Calendar.DATE)).show();
     }
 
     @Override
     protected void onStart() {
         super.onStart();
-
         requestPermission();
         client = LocationServices.getFusedLocationProviderClient(this);
     }
@@ -123,9 +162,9 @@ public class CreateLobby extends AppCompatActivity {
             public void onSuccess(Location location) {
 
                 if (location != null) {
-
+                    String dateFormat = "" + year + "/" + monthOfYear + "/" + dayOfMonth + "/" + hourOfDay + "/" + minute;
                     locationString = "" + location.getLongitude() + " " + location.getLatitude();
-                    createdLobby = new Lobby(user.getUid(), user.getDisplayName(), mealName, mealPrice, mealIngredients, formattedDate, locationString, finalMaxGuests);
+                    createdLobby = new Lobby(user.getUid(), user.getDisplayName(), mealName, mealPrice, mealIngredients, dateFormat, locationString, finalMaxGuests);
                     createdLobby.id = roomRef.getKey();
 
                     roomRef.setValue(createdLobby)

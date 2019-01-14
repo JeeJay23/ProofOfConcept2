@@ -3,6 +3,7 @@ package com.cloutgang.proofofconcept2;
 import com.google.firebase.database.Exclude;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 
 /**
@@ -22,9 +23,9 @@ public class Lobby {
     public String meal;
     public String price;
     public String ingredients;
-    public String date;
     public String location;
     public int maxGuests;
+    public String date;
 
     public Lobby (String owner, String ownerName, String meal, String price, String ingredients, String date, String location, int maxGuests)
     {

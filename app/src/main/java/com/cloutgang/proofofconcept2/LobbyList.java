@@ -80,10 +80,13 @@ public class LobbyList extends AppCompatActivity {
                 lobbyList.clear();
 
                 for (DataSnapshot lobbySnap : dataSnapshot.getChildren()) {
+                    try {
+                        Lobby lobby = lobbySnap.getValue(Lobby.class);
 
-                    Lobby lobby = lobbySnap.getValue(Lobby.class);
-                    lobby.id = lobbySnap.getKey();
-                    lobbyList.add(lobby);
+                        lobby.id = lobbySnap.getKey();
+                        lobbyList.add(lobby);
+                    } catch (Exception e) {
+                    }
                 }
                 if (ActivityCompat.checkSelfPermission(LobbyList.this, ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
                     return;
